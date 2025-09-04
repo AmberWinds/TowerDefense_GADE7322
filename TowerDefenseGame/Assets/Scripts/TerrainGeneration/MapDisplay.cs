@@ -8,6 +8,8 @@ public class MapDisplay : MonoBehaviour
     public MeshCollider meshCollider;
     public MeshRenderer meshRenderer;
 
+    public GameManager GameManager;
+
 
     public void DrawTexture(Texture2D texture)
     {
@@ -17,9 +19,12 @@ public class MapDisplay : MonoBehaviour
 
     public void DrawMesh(MeshData meshData, Texture2D texture)
     {
+
         meshFilter.mesh = meshData.CreateMesh();
         meshRenderer.sharedMaterial.mainTexture = texture;
         meshCollider.sharedMesh = meshFilter.sharedMesh;
-
+        Debug.Log("DrawMesh Is Called");
+        
+        GameManager.Instance.BeginGeneratingGame(meshData);
     }
 }

@@ -20,11 +20,9 @@ public class GridObjectSpawner : MonoBehaviour
 
     MeshCollider meshCollider;
     MeshFilter filter;
-    List<GameObject> objects;
+    List<Vector3> objects;
 
     public List<ObjectSpawnRule> spawnRules;
-    public GameObject MainTower;
-
 
 
     private void Awake()
@@ -41,7 +39,7 @@ public class GridObjectSpawner : MonoBehaviour
 
     private void Start()
     {
-        objects = new List<GameObject>();
+        objects = new List<Vector3>();
 
         meshCollider = GetComponent<MeshCollider>();
         filter = GetComponent<MeshFilter>();
@@ -105,7 +103,7 @@ public class GridObjectSpawner : MonoBehaviour
                     Vector3 spawnPos = new Vector3(x, worldY, z);
                     GameObject obj = Instantiate(rule.prefab, spawnPos, rotate, transform);      //transform makes it a child of the mesh. 
                     obj.transform.localScale = rule.scale;
-                    objects.Add(obj);
+                    objects.Add(obj.transform.position);
 
                     spawned++;
                 }

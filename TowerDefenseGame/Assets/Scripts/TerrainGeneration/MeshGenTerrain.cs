@@ -38,6 +38,8 @@ public class MeshGenTerrain : MonoBehaviour
         }
 
 
+
+
         return meshData;    //Contains All Data for the Mesh
     }
 }
@@ -47,11 +49,15 @@ public class MeshData
     public Vector3[] vertices;
     public int[] triangles;
     public Vector2[] uvs;       //UV map so that we can add Textures
+    public int width;
+    public int height;
 
     int triangleIndex;
 
     public MeshData(int meshWidth, int meshHeight)
     {
+        width = meshWidth;
+        height = meshHeight;
         vertices = new Vector3[meshWidth * meshHeight];
         uvs = new Vector2[meshWidth * meshHeight];
         triangles = new int[(meshWidth - 1) * (meshHeight - 1) * 6];
