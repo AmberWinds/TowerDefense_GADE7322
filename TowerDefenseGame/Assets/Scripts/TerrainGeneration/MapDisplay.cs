@@ -23,8 +23,7 @@ public class MapDisplay : MonoBehaviour
         meshFilter.mesh = meshData.CreateMesh();
         meshRenderer.sharedMaterial.mainTexture = texture;
         meshCollider.sharedMesh = meshFilter.sharedMesh;
-        Debug.Log("DrawMesh Is Called");
-        
+
         GameManager.Instance.BeginGeneratingGame(meshData);
     }
 }
