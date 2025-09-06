@@ -16,15 +16,13 @@ public class ObjectSpawnRule
 [RequireComponent(typeof(MeshCollider))]
 public class GridObjectSpawner : MonoBehaviour
 {
-    GridObjectSpawner Instance;                         //SINGLETON
+    public static GridObjectSpawner Instance { get; private set; }                         //SINGLETON
 
     MeshCollider meshCollider;
     MeshFilter filter;
-    List<GameObject> objects;
 
+    public List<GameObject> objects;
     public List<ObjectSpawnRule> spawnRules;
-    public GameObject MainTower;
-
 
 
     private void Awake()

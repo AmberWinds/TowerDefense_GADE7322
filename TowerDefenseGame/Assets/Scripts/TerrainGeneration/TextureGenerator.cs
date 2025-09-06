@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TextureGenerator : MonoBehaviour
+public class TextureGenerator 
 {
     public static Texture2D TextureFromColourMap(Color[] colourMap, int width, int height)
     {

@@ -1,6 +1,9 @@
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class MeshGenTerrain : MonoBehaviour
+public class MeshGenTerrain
 {
     public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve curve)
     {
@@ -38,6 +41,8 @@ public class MeshGenTerrain : MonoBehaviour
         }
 
 
+
+
         return meshData;    //Contains All Data for the Mesh
     }
 }
@@ -47,11 +52,18 @@ public class MeshData
     public Vector3[] vertices;
     public int[] triangles;
     public Vector2[] uvs;       //UV map so that we can add Textures
+    public int width;
+    public int height;
 
     int triangleIndex;
 
+    //Pathing
+    public LinkedList<List<Vector3>> paths;
+
     public MeshData(int meshWidth, int meshHeight)
     {
+        width = meshWidth;
+        height = meshHeight;
         vertices = new Vector3[meshWidth * meshHeight];
         uvs = new Vector2[meshWidth * meshHeight];
         triangles = new int[(meshWidth - 1) * (meshHeight - 1) * 6];
@@ -68,6 +80,20 @@ public class MeshData
         triangleIndex += 3;
     }
 
+    public bool isValidVertex(float x, float z)
+    {
+        // Convert world coordinates to grid coordinates
+        float topLeftX = (width - 1) / -2f;
+        float topLeftZ = (height - 1) / 2f;
+        
+        int gridX = Mathf.RoundToInt(x - topLeftX);
+        int gridZ = Mathf.RoundToInt(topLeftZ - z);
+        
+        return gridX >= 0 && gridX < width && gridZ >= 0 && gridZ < height;
+    }
+
+
+
     //generate Mesh
     public Mesh CreateMesh()
     {
@@ -77,5 +103,22 @@ public class MeshData
         mesh.uv = uvs;
         mesh.RecalculateNormals(); //For Lighting
         return mesh;
+    }
+
+    internal int CalculateIndexFromCoords(float x, float z)
+    {
+        // Convert world coordinates to grid coordinates
+        float topLeftX = (width - 1) / -2f;
+        float topLeftZ = (height - 1) / 2f;
+        
+        int gridX = Mathf.RoundToInt(x - topLeftX);
+        int gridZ = Mathf.RoundToInt(topLeftZ - z);
+        
+        if (gridX >= 0 && gridX < width && gridZ >= 0 && gridZ < height)
+        {
+            return gridZ * width + gridX;
+        }
+        
+        return -1;
     }
 }
