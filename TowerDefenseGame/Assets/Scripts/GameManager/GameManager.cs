@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         enemySpawnPos = SpawnEnemyStartPos();
 
         //Flatten the Middle of The Map
-        FlattenAreaAroundAreas(centerPoint, enemySpawnPos);
+        FlattenAreaAroundMainPos(centerPoint, enemySpawnPos);
 
         SpawnMainTower(); //Spawn in The BOSS BOY       -- IT WORKS, we can change the thingy leter
 
@@ -73,16 +73,20 @@ public class GameManager : MonoBehaviour
         FlattenPaths();
 
         meshdata.paths = paths;     //This little meshdata class holds ALL POWER
+
+        Pathing.instance.SpawnPaths(meshdata);
+        
+        // Spawn objects after pathing is complete
+        SpawnObjects();
     }
 
     private void FindPath()
     {
         for (int i = 0; i < enemySpawnPos.Count; i++)
         {
-            paths.AddFirst(AStar.GetPath(enemySpawnPos[i], centerPoint, GridObjectSpawner.Instance.objects, mesh));
+            paths.AddFirst(AStar.GetPath(enemySpawnPos[i], centerPoint, mesh));
 
         }
-
 
     }
 
@@ -135,7 +139,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void FlattenAreaAroundAreas(Vector3 mainTowerPos, List<Vector3> enemySpawnPos)
+    private void FlattenAreaAroundMainPos(Vector3 mainTowerPos, List<Vector3> enemySpawnPos)
     {
         for (int y = 0; y < mesh.height; y++)
         {
@@ -153,9 +157,9 @@ public class GameManager : MonoBehaviour
                     mesh.vertices[i] = v;
                 }
                 
-                foreach(var spawnpos  in enemySpawnPos)
+                foreach(var spawnpos in enemySpawnPos)
                 {
-                    float dist2 = Vector2.Distance(new Vector2(x, y), new Vector2(spawnpos.x, spawnpos.y));
+                    float dist2 = Vector2.Distance(new Vector2(x, y), new Vector2(spawnpos.x, spawnpos.z));
 
                     if (dist2 < flattenRadius)
                     {
@@ -178,17 +182,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        terrainMeshFilter.sharedMesh.vertices = mesh.vertices;
-        terrainMeshFilter.sharedMesh.RecalculateBounds();
-        terrainMeshFilter.sharedMesh.RecalculateNormals();
-
-
-        terrainMeshCollider.sharedMesh = null;
-        terrainMeshCollider.sharedMesh = terrainMeshFilter.sharedMesh;
-        Physics.SyncTransforms();
-
-
-        navigation.surface.BuildNavMesh();
+        UpdateMeshAfterFlattening();
 
     }
 
@@ -200,8 +194,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($"FlattenPaths: Starting to flatten {paths.Count} paths.");
 
+        int totalPositions = 0;
         // Iterate through each path in the LinkedList
         foreach (var path in paths)
         {
@@ -210,6 +204,8 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("FlattenPaths: Skipping null or empty path.");
                 continue;
             }
+
+            totalPositions += path.Count;
 
             // Iterate through each position in the current path
             foreach (var position in path)
@@ -224,31 +220,40 @@ public class GameManager : MonoBehaviour
         Debug.Log("FlattenPaths: Completed flattening all paths.");
     }
 
+    private void SpawnObjects()
+    {
+        
+        if (spawner != null)
+        {
+            // Passes the paths to the spawner so it can avoid spawning on them
+            spawner.PlaceObjects(paths);
+        }
+        else
+        {
+            Debug.LogWarning("SpawnObjects: GridObjectSpawner is not assigned.");
+        }
+    }
+
     private void FlattenAreaAroundPosition(Vector3 position)
     {
-        // Convert world position to grid coordinates
-        int gridX = Mathf.RoundToInt(position.x);
-        int gridZ = Mathf.RoundToInt(position.z);
-
-        // Iterate through the mesh vertices around the position
-        for (int y = 0; y < mesh.height; y++)
+        
+        int verticesModified = 0;
+        for (int i = 0; i < mesh.vertices.Length; i++)
         {
-            for (int x = 0; x < mesh.width; x++)
+            Vector3 v = mesh.vertices[i];
+            
+            // Calculate distance from current vertex to the path position (2D distance, ignoring height)       //We can ignore height because we are going to flatten  it.
+            float dist = Vector2.Distance(new Vector2(v.x, v.z), new Vector2(position.x, position.z));
+
+            if (dist < flattenRadius)
             {
-                int i = y * mesh.width + x;
-                Vector3 v = mesh.vertices[i];
-
-                // Calculate distance from current vertex to the path position (2D distance)
-                float distance = Vector2.Distance(new Vector2(x, y), new Vector2(gridX, gridZ));
-
-                // If within flatten radius, set height to flattenHeight
-                if (distance < flattenRadius)
-                {
-                    v.y = flattenHeight;
-                    mesh.vertices[i] = v;
-                }
+                v.y = flattenHeight;
+                mesh.vertices[i] = v;
+                verticesModified++;
             }
         }
+        
+     
     }
 
     private void UpdateMeshAfterFlattening()

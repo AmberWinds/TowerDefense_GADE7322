@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class AStar
 {
-    public static List<Vector3> GetPath(Vector3 startPos, Vector3 target, List<GameObject> obstaclesArray, MeshData meshData)
+    public static List<Vector3> GetPath(Vector3 startPos, Vector3 target, MeshData meshData)
     {
 
         // Check if start and target are the same
@@ -47,7 +47,7 @@ public static class AStar
                 break;
             }
 
-            var arrayOfNeighbours = FindNeighboursFor(currentVertex, meshData, obstaclesArray);
+            var arrayOfNeighbours = FindNeighboursFor(currentVertex, meshData);
             int validNeighbours = 0;
             int blockedNeighbours = 0;
 
@@ -87,7 +87,7 @@ public static class AStar
         return path;
     }
 
-    private static VertexPosition[] FindNeighboursFor(VertexPosition currentVertex, MeshData meshData, List<GameObject> obstaclesArray)
+    private static VertexPosition[] FindNeighboursFor(VertexPosition currentVertex, MeshData meshData)
     {
         VertexPosition[] arrayOfNeighbours = new VertexPosition[4];      //Number of spaces that we can move is 4 because we are not moving diagonally.
 
@@ -95,22 +95,12 @@ public static class AStar
         foreach (var possibleNeighbour in VertexPosition.possibleNeighbours)
         {
             // Use actual mesh coordinate 
-            Vector3 position = new Vector3(currentVertex.Position.x + possibleNeighbour.x, 0, currentVertex.Position.z + possibleNeighbour.y);
+            Vector3 position = new Vector3(currentVertex.Position.x + possibleNeighbour.x, 0.2f ,currentVertex.Position.z + possibleNeighbour.y);
             
             if (meshData.isValidVertex(position.x, position.z))
             {
-                bool isTaken = false;
-                foreach(var obj in obstaclesArray)
-                {
-                    if(obj != null && Mathf.Abs(obj.transform.position.x - position.x) < 0.1f && 
-                       Mathf.Abs(obj.transform.position.z - position.z) < 0.1f)
-                    {
-                        isTaken = true;
-                        break;
-                    }
-                }
-                
-                arrayOfNeighbours[arrayIndex] = new VertexPosition(position, isTaken);
+                // No obstacles to check - all positions are walkable
+                arrayOfNeighbours[arrayIndex] = new VertexPosition(position, false);
                 arrayIndex++;
             }
             else
