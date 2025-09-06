@@ -951,7 +951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addbc9001fed2d8409c58e249cc3eb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 1050736316}
   meshFilter: {fileID: 274422658}
   meshCollider: {fileID: 274422659}
   meshRenderer: {fileID: 274422657}

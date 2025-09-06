@@ -23,6 +23,7 @@ public class MeshGenerator : MonoBehaviour
 
     public TerrainTypes[] regions;
 
+
     private void Start()
     {
         GenerateMap();

@@ -5,16 +5,20 @@ using UnityEngine;
 
 public static class AStar
 {
-    public static List<Vector3> GetPath(Vector3 startPos, Vector3 target, GameObject[] obstaclesArray, MeshData meshData)
+    public static List<Vector3> GetPath(Vector3 startPos, Vector3 target, List<GameObject> obstaclesArray, MeshData meshData)
     {
 
+        // Check if start and target are the same
+        if (Mathf.Abs(startPos.x - target.x) < 0.1f && Mathf.Abs(startPos.z - target.z) < 0.1f)
+        {
+            Debug.LogWarning("A* Start and target are the same position - returning empty path");
+            return new List<Vector3> { startPos };
+        }
+        
         VertexPosition startVertex = new VertexPosition(startPos);
-
         VertexPosition targetVertex = new VertexPosition(target);
-        //God Help me
 
         List<Vector3> path = new List<Vector3>();
-
         List<VertexPosition> openedList = new List<VertexPosition>();
         HashSet<VertexPosition> closedList = new HashSet<VertexPosition>();
 
@@ -22,34 +26,38 @@ public static class AStar
         openedList.Add(startVertex);
         
         VertexPosition currentVertex = null;
-        
-        while( openedList.Count > 0 )
+        int iterations = 0;
+
+        while( openedList.Count > 0)
         {
+            iterations++;
             openedList.Sort();
             currentVertex = openedList[0];
 
-            if( currentVertex.Equals(currentVertex))
+
+            if( currentVertex.Equals(targetVertex))
             {
-                while(currentVertex != startVertex)
+                while(currentVertex != null)
                 {
                     path.Add(currentVertex.Position);
                     currentVertex = currentVertex.previousVertex;
                 }
 
-                path.Reverse();     //Started from the end so now we here
+                path.Reverse();
                 break;
             }
 
             var arrayOfNeighbours = FindNeighboursFor(currentVertex, meshData, obstaclesArray);
+            int validNeighbours = 0;
+            int blockedNeighbours = 0;
 
             foreach( var neighbour in arrayOfNeighbours)
             {
-                //Check is neighbout is nulll
                 if (neighbour == null || closedList.Contains(neighbour)){ continue; }
 
                 if(neighbour.IsTaken == false)
                 {
-                    var totalCost = currentVertex.estimatedCost + 1;
+                    var totalCost = currentVertex.totalCost + 1;
                     var neighbourEstimatedCost = TowerDistance(neighbour, targetVertex);
                     neighbour.totalCost = totalCost;
                     neighbour.previousVertex = currentVertex;
@@ -58,43 +66,56 @@ public static class AStar
                     if(openedList.Contains(neighbour) == false)
                     {
                         openedList.Add(neighbour);
+                        validNeighbours++;
                     }
+                }
+                else
+                {
+                    blockedNeighbours++;
                 }
             }
 
             closedList.Add(currentVertex);
-            openedList.Remove(currentVertex);       //Do not want to check it again.
-
+            openedList.Remove(currentVertex);
         }
 
+        if (openedList.Count == 0)
+        {
+            Debug.LogWarning("A* exhausted all possibilities without finding a path");
+        }
 
         return path;
     }
 
-    private static VertexPosition[] FindNeighboursFor(VertexPosition currentVertex, MeshData meshData, GameObject[] obstaclesArray)
+    private static VertexPosition[] FindNeighboursFor(VertexPosition currentVertex, MeshData meshData, List<GameObject> obstaclesArray)
     {
         VertexPosition[] arrayOfNeighbours = new VertexPosition[4];      //Number of spaces that we can move is 4 because we are not moving diagonally.
 
         int arrayIndex = 0;
         foreach (var possibleNeighbour in VertexPosition.possibleNeighbours)
         {
-            Vector3 position = new Vector3(currentVertex.X + possibleNeighbour.x, 0, currentVertex.Z + possibleNeighbour.y);
+            // Use actual mesh coordinate 
+            Vector3 position = new Vector3(currentVertex.Position.x + possibleNeighbour.x, 0, currentVertex.Position.z + possibleNeighbour.y);
+            
             if (meshData.isValidVertex(position.x, position.z))
             {
-                int index = meshData.CalculateIndexFromCoords(position.x, position.z);
-
                 bool isTaken = false;
                 foreach(var obj in obstaclesArray)
                 {
-                    if(obj.transform.position.x == position.x && obj.transform.position.z == position.z)
+                    if(obj != null && Mathf.Abs(obj.transform.position.x - position.x) < 0.1f && 
+                       Mathf.Abs(obj.transform.position.z - position.z) < 0.1f)
                     {
                         isTaken = true;
                         break;
                     }
                 }
                 
-                arrayOfNeighbours[index] = new VertexPosition(position, isTaken);
+                arrayOfNeighbours[arrayIndex] = new VertexPosition(position, isTaken);
                 arrayIndex++;
+            }
+            else
+            {
+                // Invalid neighbor 
             }
         }
 
@@ -103,7 +124,7 @@ public static class AStar
 
     private static float TowerDistance(VertexPosition startPos, VertexPosition targetVertex)
     {
-        return Mathf.Abs(startPos.X - targetVertex.X + Mathf.Abs(startPos.Z - targetVertex.Z));
+        return Mathf.Abs(startPos.Position.x - targetVertex.Position.x) + Mathf.Abs(startPos.Position.z - targetVertex.Position.z);
     }
 }
 

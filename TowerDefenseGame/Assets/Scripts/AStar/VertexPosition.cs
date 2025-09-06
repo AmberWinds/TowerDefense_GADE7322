@@ -32,14 +32,9 @@ public class VertexPosition : IEquatable<VertexPosition>, IComparable<VertexPosi
         this.totalCost = 1;
     }
 
-    public int GetHashCode(VertexPosition other)
-    {
-        return other.GetHashCode();
-    }
-
     public override int GetHashCode()
     {
-        return position.GetHashCode();
+        return ((int)position.x * 1000 + (int)position.z).GetHashCode();
     }
 
     public int CompareTo(VertexPosition other)
@@ -51,6 +46,8 @@ public class VertexPosition : IEquatable<VertexPosition>, IComparable<VertexPosi
 
     public bool Equals(VertexPosition other)
     {
-        return Position == other.Position;
+        if (other == null) return false;
+        return Mathf.Abs(Position.x - other.Position.x) < 0.1f && 
+               Mathf.Abs(Position.z - other.Position.z) < 0.1f;
     }
 }

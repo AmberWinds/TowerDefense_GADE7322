@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     int centerY;
     Vector3 centerPoint;
     List<Vector3> enemySpawnPos;
+    private LinkedList<List<Vector3>> paths;
 
     private void Awake()
     {
@@ -36,12 +37,11 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        enemySpawnPos = new List<Vector3>();
+        paths = new LinkedList<List<Vector3>>();
     }
 
-    private void Start()
-    {
-        enemySpawnPos = new List<Vector3>();
-    }
 
     public void BeginGeneratingGame(MeshData meshdata)
     {
@@ -66,6 +66,22 @@ public class GameManager : MonoBehaviour
         FlattenAreaAroundAreas(centerPoint, enemySpawnPos);
 
         SpawnMainTower(); //Spawn in The BOSS BOY       -- IT WORKS, we can change the thingy leter
+
+        FindPath();     //IT WORKS, NO TOUCH
+        
+        // Flatten the mesh around all path positions
+        FlattenPaths();
+
+        meshdata.paths = paths;     //This little meshdata class holds ALL POWER
+    }
+
+    private void FindPath()
+    {
+        for (int i = 0; i < enemySpawnPos.Count; i++)
+        {
+            paths.AddFirst(AStar.GetPath(enemySpawnPos[i], centerPoint, GridObjectSpawner.Instance.objects, mesh));
+
+        }
 
 
     }
@@ -174,5 +190,80 @@ public class GameManager : MonoBehaviour
 
         navigation.surface.BuildNavMesh();
 
+    }
+
+    private void FlattenPaths()
+    {
+        if (paths == null || paths.Count == 0)
+        {
+            Debug.LogWarning("FlattenPaths: No paths available to flatten.");
+            return;
+        }
+
+        Debug.Log($"FlattenPaths: Starting to flatten {paths.Count} paths.");
+
+        // Iterate through each path in the LinkedList
+        foreach (var path in paths)
+        {
+            if (path == null || path.Count == 0)
+            {
+                Debug.LogWarning("FlattenPaths: Skipping null or empty path.");
+                continue;
+            }
+
+            // Iterate through each position in the current path
+            foreach (var position in path)
+            {
+                FlattenAreaAroundPosition(position);
+            }
+        }
+
+        // Update the mesh after all flattening is complete
+        UpdateMeshAfterFlattening();
+        
+        Debug.Log("FlattenPaths: Completed flattening all paths.");
+    }
+
+    private void FlattenAreaAroundPosition(Vector3 position)
+    {
+        // Convert world position to grid coordinates
+        int gridX = Mathf.RoundToInt(position.x);
+        int gridZ = Mathf.RoundToInt(position.z);
+
+        // Iterate through the mesh vertices around the position
+        for (int y = 0; y < mesh.height; y++)
+        {
+            for (int x = 0; x < mesh.width; x++)
+            {
+                int i = y * mesh.width + x;
+                Vector3 v = mesh.vertices[i];
+
+                // Calculate distance from current vertex to the path position (2D distance)
+                float distance = Vector2.Distance(new Vector2(x, y), new Vector2(gridX, gridZ));
+
+                // If within flatten radius, set height to flattenHeight
+                if (distance < flattenRadius)
+                {
+                    v.y = flattenHeight;
+                    mesh.vertices[i] = v;
+                }
+            }
+        }
+    }
+
+    private void UpdateMeshAfterFlattening()
+    {
+        // Update the mesh filter
+        terrainMeshFilter.sharedMesh.vertices = mesh.vertices;
+        terrainMeshFilter.sharedMesh.RecalculateBounds();
+        terrainMeshFilter.sharedMesh.RecalculateNormals();
+
+        // Update the mesh collider
+        terrainMeshCollider.sharedMesh = null;
+        terrainMeshCollider.sharedMesh = terrainMeshFilter.sharedMesh;
+        Physics.SyncTransforms();
+
+        // Rebuild navigation mesh
+        navigation.surface.BuildNavMesh();
     }
 }

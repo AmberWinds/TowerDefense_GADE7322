@@ -1,7 +1,9 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class MeshGenTerrain : MonoBehaviour
+public class MeshGenTerrain
 {
     public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve curve)
     {
@@ -55,6 +57,9 @@ public class MeshData
 
     int triangleIndex;
 
+    //Pathing
+    public LinkedList<List<Vector3>> paths;
+
     public MeshData(int meshWidth, int meshHeight)
     {
         width = meshWidth;
@@ -77,17 +82,14 @@ public class MeshData
 
     public bool isValidVertex(float x, float z)
     {
-        foreach(Vector3 vector in vertices)
-        {
-            if(vector.x == x && vector.z == z)
-            {
-                return true;
-            }
-            
-
-        }
-
-        return false;
+        // Convert world coordinates to grid coordinates
+        float topLeftX = (width - 1) / -2f;
+        float topLeftZ = (height - 1) / 2f;
+        
+        int gridX = Mathf.RoundToInt(x - topLeftX);
+        int gridZ = Mathf.RoundToInt(topLeftZ - z);
+        
+        return gridX >= 0 && gridX < width && gridZ >= 0 && gridZ < height;
     }
 
 
@@ -105,17 +107,18 @@ public class MeshData
 
     internal int CalculateIndexFromCoords(float x, float z)
     {
-        int index = 0;
-
-        foreach(Vector3 vector in vertices)
-        {        
-            if (vector.x == x && vector.z == z)
-            {
-                return index;
-            }
-            index++;
+        // Convert world coordinates to grid coordinates
+        float topLeftX = (width - 1) / -2f;
+        float topLeftZ = (height - 1) / 2f;
+        
+        int gridX = Mathf.RoundToInt(x - topLeftX);
+        int gridZ = Mathf.RoundToInt(topLeftZ - z);
+        
+        if (gridX >= 0 && gridX < width && gridZ >= 0 && gridZ < height)
+        {
+            return gridZ * width + gridX;
         }
-
+        
         return -1;
     }
 }
