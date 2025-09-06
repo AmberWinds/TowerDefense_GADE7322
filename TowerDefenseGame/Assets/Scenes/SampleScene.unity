@@ -306,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizePath: 1
   pathObj: {fileID: 1839786891944690, guid: c96016c34e7be62488e588470988ef5b, type: 3}
+  scale: {x: 0.4, y: 0.8, z: 0.4}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +891,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d5f6fa4fdc164ff43b3fbbeb0c37b534, type: 2}
+  - {fileID: 2100000, guid: e68f77e240a7f8643b5cc4253dc37516, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1070,12 +1071,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb3a676802198d4887039f2568a8318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainTower: {fileID: 1121113006719782, guid: 386f40ad68cdd3c4fbcb471ef2d93772, type: 3}
+  mainTower: {fileID: 3484804037060006919, guid: a55a0c9e057bc994ea182b2668dbdccb, type: 3}
   terrainMeshFilter: {fileID: 274422658}
   terrainMeshCollider: {fileID: 274422659}
   spawner: {fileID: 274422656}
   navigation: {fileID: 1050736313}
-  flattenRadius: 10
+  flattenRadius: 3.2
   flattenHeight: 0
   spawnPosAmount: 3
 --- !u!1660057539 &9223372036854775807

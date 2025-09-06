@@ -11,6 +11,7 @@ public class Pathing : MonoBehaviour
 
     public bool visualizePath = false;
     [SerializeField] GameObject pathObj;
+    [SerializeField] Vector3 scale = Vector3.one;
 
     public void SpawnPaths(MeshData data)
     {
@@ -20,7 +21,8 @@ public class Pathing : MonoBehaviour
             {
                 foreach (var pos in path)
                 {
-                    Instantiate(pathObj, pos, Quaternion.identity);
+                    GameObject obj = Instantiate(pathObj, pos, Quaternion.identity);
+                    obj.transform.localScale = scale;
                 }
             }
         }
