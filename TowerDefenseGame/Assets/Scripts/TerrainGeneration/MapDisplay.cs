@@ -8,8 +8,6 @@ public class MapDisplay : MonoBehaviour
     public MeshCollider meshCollider;
     public MeshRenderer meshRenderer;
 
-    public GameManager GameManager;
-
 
     public void DrawTexture(Texture2D texture)
     {

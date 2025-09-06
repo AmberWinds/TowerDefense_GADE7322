@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MeshGenTerrain : MonoBehaviour
@@ -74,6 +75,23 @@ public class MeshData
         triangleIndex += 3;
     }
 
+    public bool isValidVertex(float x, float z)
+    {
+        foreach(Vector3 vector in vertices)
+        {
+            if(vector.x == x && vector.z == z)
+            {
+                return true;
+            }
+            
+
+        }
+
+        return false;
+    }
+
+
+
     //generate Mesh
     public Mesh CreateMesh()
     {
@@ -83,5 +101,21 @@ public class MeshData
         mesh.uv = uvs;
         mesh.RecalculateNormals(); //For Lighting
         return mesh;
+    }
+
+    internal int CalculateIndexFromCoords(float x, float z)
+    {
+        int index = 0;
+
+        foreach(Vector3 vector in vertices)
+        {        
+            if (vector.x == x && vector.z == z)
+            {
+                return index;
+            }
+            index++;
+        }
+
+        return -1;
     }
 }

@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
+using static UnityEngine.Mesh;
 
 public class GameManager : MonoBehaviour
 {
-    public GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
     //Variables
     public GameObject mainTower;
@@ -14,14 +16,15 @@ public class GameManager : MonoBehaviour
     public GridObjectSpawner spawner;
     public NavigationUpdate navigation;
 
-
     public float flattenRadius = 30.0f;
     public float flattenHeight = 0f;
+    public int spawnPosAmount = 3;
 
     private MeshData mesh;
     int centerX;
     int centerY;
     Vector3 centerPoint;
+    List<Vector3> enemySpawnPos;
 
     private void Awake()
     {
@@ -33,6 +36,11 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        enemySpawnPos = new List<Vector3>();
     }
 
     public void BeginGeneratingGame(MeshData meshdata)
@@ -51,11 +59,46 @@ public class GameManager : MonoBehaviour
         int centerIndex = centerY * meshdata.width + centerX;
 
         centerPoint = meshdata.vertices[centerIndex];
+        
+        enemySpawnPos = SpawnEnemyStartPos();
 
         //Flatten the Middle of The Map
-        FlattenAreaAroundTower(centerPoint);
+        FlattenAreaAroundAreas(centerPoint, enemySpawnPos);
 
         SpawnMainTower(); //Spawn in The BOSS BOY       -- IT WORKS, we can change the thingy leter
+
+
+    }
+
+    private List<Vector3> SpawnEnemyStartPos()
+    {
+        int width = mesh.width;
+        int height = mesh.height;
+
+        List<Vector3> edgeVertices = new List<Vector3>();
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
+                {
+                    int i = y * width + x;
+                    edgeVertices.Add(mesh.vertices[i]);
+                }
+            }
+        }
+
+        List<Vector3> results = new List<Vector3>();
+        for (int k = 0; k < spawnPosAmount && edgeVertices.Count > 0; k++)
+        {
+            int idx = UnityEngine.Random.Range(0, edgeVertices.Count);
+            results.Add(edgeVertices[idx]);
+            edgeVertices.RemoveAt(idx); // ensures no duplicates
+        }
+
+        return results;
+
     }
 
     private void SpawnMainTower()
@@ -76,8 +119,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-    private void FlattenAreaAroundTower(Vector3 mainTowerPos)
+    private void FlattenAreaAroundAreas(Vector3 mainTowerPos, List<Vector3> enemySpawnPos)
     {
         for (int y = 0; y < mesh.height; y++)
         {
@@ -93,6 +135,17 @@ public class GameManager : MonoBehaviour
                 {
                     v.y = flattenHeight;
                     mesh.vertices[i] = v;
+                }
+                
+                foreach(var spawnpos  in enemySpawnPos)
+                {
+                    float dist2 = Vector2.Distance(new Vector2(x, y), new Vector2(spawnpos.x, spawnpos.y));
+
+                    if (dist2 < flattenRadius)
+                    {
+                        v.y = flattenHeight;
+                        mesh.vertices[i] = v;
+                    }
                 }
 
             
