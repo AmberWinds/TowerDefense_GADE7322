@@ -28,7 +28,7 @@ public class DefenderBehaviour : MonoBehaviour
     public bool showDetectionRadius = true;     //Gonna have to see the radius
 
     private Transform currentTarget;
-    private float nextFireTime;
+    private float nextFireTime = 0;
 
 
 
@@ -72,6 +72,8 @@ public class DefenderBehaviour : MonoBehaviour
 
         Destroy(projectile, 5f);
     }
+
+
 
     private void DetectTargets()
     {
