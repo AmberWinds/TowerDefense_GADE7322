@@ -24,7 +24,7 @@ public class TowerBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)      //Only thing that changes health. No need to check it every frame
     {
-        if(collision.gameObject.tag == "EnemyBot")
+        if(collision.gameObject.tag == "Enemy")
         {
             currentHealth--;
             if(currentHealth <= 0)

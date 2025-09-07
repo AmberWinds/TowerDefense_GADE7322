@@ -41,17 +41,13 @@ public class EnemyManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        enemySpawnPos = new List<Vector3>();
+
     }
 
     public void BeginSpawningEnemies()
     {
+        enemySpawnPos = new List<Vector3>();
         enemySpawnPos = GameManager.Instance.enemySpawnPos;
-
-        if (enemySpawnPos == null || Enemies == null)
-        {
-            Debug.LogWarning("No Enemies or Positions to Spawn");
-        }
 
         spawnRoutine = StartCoroutine(SpawnLoop());
     }
@@ -67,7 +63,7 @@ public class EnemyManager : MonoBehaviour
         {
             Enemy enemy = Enemies[UnityEngine.Random.Range(0, Enemies.Length)];
 
-            Debug.Log($"in while loop AND CHECKING ON ENEMY SPAWN: Enemy spawn is null? {enemySpawnPos == null}");
+            Debug.Log($"in while loop: Enemy spawn is null? {enemySpawnPos == null} and enemySpawn Count  = {enemySpawnPos.Count}");
             foreach (var spawn in enemySpawnPos)
             {
                 Debug.Log("in the foreach loop.");
@@ -91,7 +87,6 @@ public class EnemyManager : MonoBehaviour
 [System.Serializable]
 public class Enemy
 {
-    public NavMeshAgent agent;
     public GameObject enemyPrefab;
     public float attackDmg;
     public float health;

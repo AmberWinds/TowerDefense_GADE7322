@@ -40,7 +40,8 @@ public class GameManager : MonoBehaviour
     Vector3 centerPoint;
     [HideInInspector]
     public List<Vector3> enemySpawnPos;
-    private LinkedList<List<Vector3>> paths;
+    [HideInInspector]
+    public LinkedList<List<Vector3>> paths;
 
     private void Awake()
     {
