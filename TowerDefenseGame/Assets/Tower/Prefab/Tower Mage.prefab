@@ -611,8 +611,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4959194679655373640, guid: 30f86879f9fcd7340860f76e4b734c26, type: 3}
   muzzle: {fileID: 9036400342960706109}
   head: {fileID: 411524}
-  projectileSpeed: 20
-  fireRate: 0.5
+  projectileSpeed: 50
+  fireRate: 1
   dmg: 20
   showDetectionRadius: 1
 --- !u!136 &6085970814237182039

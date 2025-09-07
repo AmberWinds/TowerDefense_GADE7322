@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.7321925
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.14675617
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5.2320395
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
       propertyPath: m_LocalRotation.w
@@ -111,4 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRenderer: {fileID: 3054318418075612209}
-  hoverColor: {r: 1, g: 0.10283649, b: 0, a: 1}
+  hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  defender: {fileID: 0}

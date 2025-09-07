@@ -7,8 +7,6 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
     [SerializeField] private Color hoverColor = Color.yellow;
     private Color originalColour;
 
-
-
     void Awake()
     {
         if (!targetRenderer) targetRenderer.sharedMaterial = GetComponentInChildren<Renderer>().sharedMaterial;
@@ -19,6 +17,7 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         Debug.Log("World object clicked!");
         //RUN CODE HERE
+        ClickedDefender();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -31,11 +30,11 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
         if (targetRenderer) targetRenderer.sharedMaterial.color = originalColour;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void ClickedDefender()
     {
-        
-    }
 
+        DefenderPlacement.Instance.SpawnInDefender(transform.position);
+        Destroy(gameObject);
+    }
 
 }

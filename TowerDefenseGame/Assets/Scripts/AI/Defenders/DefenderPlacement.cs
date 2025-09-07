@@ -11,15 +11,22 @@ public class DefenderPlacement : MonoBehaviour
      *  - Click to Spawn.
      */
 
+    public static DefenderPlacement Instance { get; private set; }
+
     [SerializeField] GameObject defender;
     [SerializeField] GameObject tempDefender;
     public Vector3 tempDefScale = Vector3.one;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     public void SpawnDefenderPlacements(List<Vector3> defenderPositions, List<Vector3> defenderDirections)
@@ -38,9 +45,9 @@ public class DefenderPlacement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnInDefender(Vector3 location)
     {
-        
+        Instantiate(defender, location, Quaternion.identity, transform);
     }
+
 }
