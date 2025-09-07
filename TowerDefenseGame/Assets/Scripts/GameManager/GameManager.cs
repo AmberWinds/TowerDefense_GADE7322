@@ -136,7 +136,8 @@ public class GameManager : MonoBehaviour
             d = Mathf.Min(d, totalLen);         // clamp tiny float errors at the end
 
             // Get the actual world position at this distance along the path
-            float sideSign = (i % 2 == 0) ? -1f : 1f; // even = left, odd = right
+            // Always spawn on the left side to avoid path conflicts
+            float sideSign = -1f; // Always left side
             Vector3 defenderPosition = GetPositionAtDistance(path, d, sideSign);
 
             // Store the position 

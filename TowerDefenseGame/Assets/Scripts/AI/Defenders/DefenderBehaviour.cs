@@ -21,13 +21,17 @@ public class DefenderBehaviour : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform muzzle;                // Where projectiles spawn from
     public Transform head;                  //Part that looks at player
-    public float projectileSpeed = 20f;
-    public float fireRate = 0.5f;           // Time between shots
+    public float projectileSpeed = 150f;
+    public float fireRate = 0.2f;           // Time between shots
+    private Vector3 scale = new Vector3((float)0.2, (float)0.2, (float)0.2);
+    public int dmg = 20;
+
+
 
     [Header("Visual")]
     public bool showDetectionRadius = true;     //Gonna have to see the radius
 
-    private Transform currentTarget;
+    private GameObject currentTarget;
     private float nextFireTime = 0;
 
 
@@ -35,13 +39,14 @@ public class DefenderBehaviour : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         DetectTargets();
+
 
         if(currentTarget != null)
         {
@@ -57,20 +62,32 @@ public class DefenderBehaviour : MonoBehaviour
 
     private void AttackTargets()
     {
-        if (!currentTarget || !muzzle) return;
 
+        Debug.Log("SHOOT");
 
-        head.LookAt(transform.position);
+        head.LookAt(currentTarget.transform.position, Vector3.up);
+        
+
         Vector3 direction = (currentTarget.transform.position - muzzle.position).normalized;
-        GameObject projectile = Instantiate(projectilePrefab, muzzle.position, head.localRotation);
+        GameObject projectile = Instantiate(projectilePrefab, muzzle.position, head.localRotation, transform);
+        projectile.transform.localScale = scale;
+
+        if(gameObject.GetComponent<TowerBehaviour>() != null)
+        {
+            projectile.GetComponent<Bullet>().attackDmg = gameObject.GetComponent<TowerBehaviour>().dmg;
+        }
+        else
+        {
+            projectile.GetComponent<Bullet>().attackDmg = dmg;
+        }
 
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.AddForce(direction * projectileSpeed);        //Adjust Speed
+            rb.linearVelocity = direction * projectileSpeed;        //Adjust Speed
         }
 
-        Destroy(projectile, 5f);
+        Destroy(projectile, 3f);
     }
 
 
@@ -80,32 +97,25 @@ public class DefenderBehaviour : MonoBehaviour
         //Okay, use Physics overlap to get all the colliders
         Collider[] enemyColliders = Physics.OverlapSphere(transform.position, attackRadius);
 
-        if(currentTarget != null)
-        {
-            //Check if it is in range
-            foreach(var col in enemyColliders)
-            {
-                if(col.gameObject == currentTarget)
-                {
-                    //Keep Shooting
-                    break;  //No need to keep looping
-                }
-                else
-                {
-                    //he left, new person to attack
-                    currentTarget = null;
-                }
-            }
+        GameObject closestEnemy = null;
+        float closestDistance = float.MaxValue;
 
-        }
-        else
+        // Find the closest enemy within range
+        foreach (var col in enemyColliders)
         {
-            //Find new target
-            if(enemyColliders.Length > 0 && enemyColliders[0].CompareTag("Enemy"))   //Check there is more enemies available
+            if (col.CompareTag("Enemy"))
             {
-                currentTarget = enemyColliders[0].transform;
+                float distance = Vector3.Distance(transform.position, col.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = col.gameObject;
+                }
             }
         }
+
+        // Update current target to the closest enemy
+        currentTarget = closestEnemy;
     }
 
 
@@ -120,7 +130,7 @@ public class DefenderBehaviour : MonoBehaviour
             if (currentTarget != null)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(transform.position, currentTarget.position);
+                Gizmos.DrawLine(transform.position, currentTarget.transform.position);
             }
         }
     }

@@ -55,24 +55,19 @@ public class EnemyManager : MonoBehaviour
     private IEnumerator SpawnLoop()
     {
         if (maxSpawn <= 0) yield break;
-        Debug.Log("Ola, begin spawning in ze loop");
         spawned = 0;
-
 
         while(spawned <= maxSpawn)
         {
             Enemy enemy = Enemies[UnityEngine.Random.Range(0, Enemies.Length)];
 
-            Debug.Log($"in while loop: Enemy spawn is null? {enemySpawnPos == null} and enemySpawn Count  = {enemySpawnPos.Count}");
             foreach (var spawn in enemySpawnPos)
             {
-                Debug.Log("in the foreach loop.");
                 GameObject go = Instantiate(enemy.enemyPrefab, spawn, Quaternion.identity);
                 go.GetComponent<NavMeshAgent>().speed = enemy.speed;
                 go.GetComponent<EnemyBehaviour>().BeginTracking(enemy);
                 spawned++;
 
-                Debug.Log("spawned: " + spawned);
             }
 
             yield return new WaitForSeconds(spawnDelay);    

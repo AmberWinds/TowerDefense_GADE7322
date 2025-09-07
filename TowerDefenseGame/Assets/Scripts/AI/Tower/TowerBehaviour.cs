@@ -12,13 +12,13 @@ public class TowerBehaviour : MonoBehaviour
     [Header("Health")]
     private int currentHealth;
     public int maxHealth;
+    public int dmg = 50;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         maxHealth = currentHealth;
-        
     }
 
 
@@ -26,13 +26,13 @@ public class TowerBehaviour : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            currentHealth--;
+            currentHealth-= 50;
             if(currentHealth <= 0)
             {
                 Debug.Log("Game Over");
             }
-            //collision.gameObject.SetActive(false);
-            Destroy(collision.gameObject);
+
+            Debug.Log("Goblin has Reached the Tower");
         }
     }
 }

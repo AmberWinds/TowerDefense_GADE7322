@@ -16,7 +16,11 @@ public class EnemyBehaviour : MonoBehaviour
     private LinkedList<List<Vector3>> paths;
     private List<Vector3> currentPath;
     private int currentWaypointIndex;
-    [SerializeField] private float waypointReachThreshold = 2f;
+    [SerializeField] private float waypointReachThreshold = 4f;
+
+    private float health;
+    private float attackDmg;
+
 
     private void Awake()
     {
@@ -27,16 +31,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-
-    }
-
     public void BeginTracking(Enemy me)
     {
         //Need to find the closest path
+        health = me.health;
+        attackDmg = me.attackDmg;
 
-         paths = GameManager.Instance.paths;
+        paths = GameManager.Instance.paths;
 
         FindAndAssignClosestPath();
 
@@ -58,14 +59,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FindAndAssignClosestPath()
     {
-        if (paths == null || paths.Count == 0) return;
-
         float bestDistance = float.PositiveInfinity;
         List<Vector3> bestPath = null;
 
         foreach (var path in paths)
         {
-            if (path == null || path.Count == 0) continue;
             float dist = Vector3.Distance(transform.position, path[0]);
             if (dist < bestDistance)
             {
@@ -98,6 +96,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void MoveToCurrentWaypoint()
     {
+        if (currentWaypointIndex >= currentPath.Count - 1)
+        {
+            currentWaypointIndex = currentPath.Count -1;
+        }
         Vector3 target = currentPath[currentWaypointIndex];
 
         agent.SetDestination(target);
@@ -113,7 +115,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (currentPath == null || currentPath.Count == 0) return;
         if (currentWaypointIndex < currentPath.Count - 1)
         {
-            currentWaypointIndex += 2;                                  //trying to make it more smooth by moving two indexes
+            currentWaypointIndex += 4;                                  //trying to make it more smooth by moving two indexes
             MoveToCurrentWaypoint();
         }
         else
@@ -128,6 +130,26 @@ public class EnemyBehaviour : MonoBehaviour
                 animator.SetBool("isAttacking", true);
                 animator.SetBool("isWalking", false);
             }
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+            
+        int dmg = collision.gameObject.GetComponent<Bullet>().attackDmg;
+
+        Debug.Log($"Damage taken = {dmg}");
+
+        // Apply damage
+        health -= dmg;
+        Debug.Log($"Been shot at! Took {dmg} damage, health now {health}");
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            Debug.Log("Goblin Died");
         }
     }
 }

@@ -59,5 +59,56 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5800465942376946189}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4610473287700807469}
   m_SourcePrefab: {fileID: 100100000, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
+--- !u!23 &3054318418075612209 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
+  m_PrefabInstance: {fileID: 4441265886115326133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3558936736194876900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b98598caa17d2c5499766efbe5bedc73, type: 3}
+  m_PrefabInstance: {fileID: 4441265886115326133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5800465942376946189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558936736194876900}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.239377, y: 5.4173665, z: 3.9062874}
+  m_Center: {x: -0.037073016, y: 1.7086828, z: 0.0057314634}
+--- !u!114 &4610473287700807469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558936736194876900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a76c55801686e40a8d86639d513c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 3054318418075612209}
+  hoverColor: {r: 1, g: 0.10283649, b: 0, a: 1}
