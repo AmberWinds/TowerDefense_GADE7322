@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
 
     //Paths
     Vector3 centerPoint;
-    List<Vector3> enemySpawnPos;
+    [HideInInspector]
+    public List<Vector3> enemySpawnPos;
     private LinkedList<List<Vector3>> paths;
 
     private void Awake()
@@ -99,6 +100,8 @@ public class GameManager : MonoBehaviour
         
         // Spawn objects after pathing is complete
         SpawnObjects();
+
+        EnemyManager.Instance.BeginSpawningEnemies();
     }
     
     //Defender
@@ -271,10 +274,11 @@ public class GameManager : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
+                if (x == 4 || y == 4 || x == width - 6 || y == height - 6)
                 {
                     int i = y * width + x;
-                    edgeVertices.Add(mesh.vertices[i]);
+                    edgeVertices.Add(mesh.vertices[i]); 
+                    
                 }
             }
         }
@@ -283,9 +287,11 @@ public class GameManager : MonoBehaviour
         for (int k = 0; k < spawnPosAmount && edgeVertices.Count > 0; k++)
         {
             int idx = UnityEngine.Random.Range(0, edgeVertices.Count);
-            results.Add(edgeVertices[idx]);
+            Vector3 newEnPos = new Vector3(edgeVertices[idx].x, 0, edgeVertices[idx].z);
+            results.Add(newEnPos);
             edgeVertices.RemoveAt(idx); // ensures no duplicates
         }
+
 
         return results;
 
@@ -396,7 +402,7 @@ public class GameManager : MonoBehaviour
         if (spawner != null)
         {
             // Passes the paths to the spawner so it can avoid spawning on them
-            spawner.PlaceObjects(paths);
+            spawner.PlaceObjects(paths, mainTower.transform.position, defenderPositions);
         }
         else
         {

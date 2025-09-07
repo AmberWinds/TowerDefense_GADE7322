@@ -101,7 +101,7 @@ public class DefenderBehaviour : MonoBehaviour
         else
         {
             //Find new target
-            if(enemyColliders.Length > 0)   //Check there is more enemies available
+            if(enemyColliders.Length > 0 && enemyColliders[0].CompareTag("Enemy"))   //Check there is more enemies available
             {
                 currentTarget = enemyColliders[0].transform;
             }

@@ -15,6 +15,7 @@ public class MeshGenerator : MonoBehaviour
     public float persistance;
     public float lacunarity;
 
+    [Tooltip("Seed will generate a random seed when set to 0")]
     public int seed;
     public Vector2 offset;
 
@@ -26,6 +27,11 @@ public class MeshGenerator : MonoBehaviour
 
     private void Start()
     {
+        if(seed == 0)
+        {
+            seed = Random.Range(0, 1000);
+        }
+        
         GenerateMap();
     }
 

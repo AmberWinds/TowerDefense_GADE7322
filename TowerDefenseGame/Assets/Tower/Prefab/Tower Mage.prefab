@@ -526,6 +526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 411524}
   - component: {fileID: 9566220}
+  - component: {fileID: -224338857183294718}
   m_Layer: 0
   m_Name: Tower Mage
   m_TagString: Untagged
@@ -576,3 +577,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-224338857183294718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34eae573780f2d044bd3ed6d85c30738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100

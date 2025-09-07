@@ -1,4 +1,9 @@
+using NUnit.Framework;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -10,16 +15,86 @@ public class EnemyManager : MonoBehaviour
      * 
      */
 
+    public static EnemyManager Instance { get; private set; }
+
+    private List<Vector3> enemySpawnPos;
+    private int spawned;
+    
+    public Enemy[] Enemies;                     //Going to pick them randomly from this array
+    public float spawnDelay = 1.5f;             //Time between each spawn
+    public int maxSpawn = 60;                   //maximum number of enemies that will spawn.
+
+    private Coroutine spawnRoutine;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        enemySpawnPos = new List<Vector3>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BeginSpawningEnemies()
     {
-        
+        enemySpawnPos = GameManager.Instance.enemySpawnPos;
+
+        if (enemySpawnPos == null || Enemies == null)
+        {
+            Debug.LogWarning("No Enemies or Positions to Spawn");
+        }
+
+        spawnRoutine = StartCoroutine(SpawnLoop());
     }
+
+    private IEnumerator SpawnLoop()
+    {
+        if (maxSpawn <= 0) yield break;
+        Debug.Log("Ola, begin spawning in ze loop");
+        spawned = 0;
+
+
+        while(spawned <= maxSpawn)
+        {
+            Enemy enemy = Enemies[UnityEngine.Random.Range(0, Enemies.Length)];
+
+            Debug.Log($"in while loop AND CHECKING ON ENEMY SPAWN: Enemy spawn is null? {enemySpawnPos == null}");
+            foreach (var spawn in enemySpawnPos)
+            {
+                Debug.Log("in the foreach loop.");
+                GameObject go = Instantiate(enemy.enemyPrefab, spawn, Quaternion.identity);
+                go.GetComponent<NavMeshAgent>().speed = enemy.speed;
+                go.GetComponent<EnemyBehaviour>().BeginTracking(enemy);
+                spawned++;
+
+                Debug.Log("spawned: " + spawned);
+            }
+
+            yield return new WaitForSeconds(spawnDelay);    
+            
+        }
+
+        spawnRoutine = null;
+    }
+
+}
+
+[System.Serializable]
+public class Enemy
+{
+    public NavMeshAgent agent;
+    public GameObject enemyPrefab;
+    public float attackDmg;
+    public float health;
+    public float speed;
+
 }
