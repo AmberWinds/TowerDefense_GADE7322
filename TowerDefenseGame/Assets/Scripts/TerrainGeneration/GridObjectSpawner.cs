@@ -25,6 +25,11 @@ public class GridObjectSpawner : MonoBehaviour
     public List<GameObject> objects;
     public List<ObjectSpawnRule> spawnRules;
 
+    [Header("Avoidance Radii")]
+    [SerializeField] float pathAvoidanceRadius = 2.0f;
+    [SerializeField] float towerAvoidanceRadius = 6.0f;
+    [SerializeField] float defenderAvoidanceRadius = 4.0f;
+
 
     private void Awake()
     {
@@ -56,7 +61,7 @@ public class GridObjectSpawner : MonoBehaviour
     }
 
 
-    public void PlaceObjects(LinkedList<List<Vector3>> paths = null)
+    public void PlaceObjects(LinkedList<List<Vector3>> paths = null, Vector3 towerPos = default, List<Vector3> defenderPositions = null)
     {
 
         Bounds bounds = meshCollider.bounds;
@@ -102,6 +107,18 @@ public class GridObjectSpawner : MonoBehaviour
                         continue; // Skip this position if it's on a path
                     }
 
+                    // Avoid spawning near the main tower position (XZ distance)
+                    if (IsNearTower(new Vector2(x, z), towerPos))
+                    {
+                        continue;
+                    }
+
+                    // Avoid spawning near any defender positions (XZ distance)
+                    if (IsNearAnyDefender(new Vector2(x, z), defenderPositions))
+                    {
+                        continue;
+                    }
+
                     Quaternion rotate = Quaternion.FromToRotation(Vector3.up, normal);      //Surface Up and Object are the same so that it sits flush. 
                     //now it can spawn
 
@@ -124,8 +141,7 @@ public class GridObjectSpawner : MonoBehaviour
 
     private bool IsPositionOnPath(float x, float z, LinkedList<List<Vector3>> paths)
     {
-        float pathAvoidanceRadius = 2.0f; // Radius around paths where objects won't spawn
-        
+        // Radius around paths where objects won't spawn
         foreach (var path in paths)
         {
             if (path == null) continue;
@@ -141,6 +157,26 @@ public class GridObjectSpawner : MonoBehaviour
         }
         
         return false; // Position is safe to spawn on
+    }
+
+    private bool IsNearTower(Vector2 candidateXZ, Vector3 towerPos)
+    {
+        // If no tower position provided, skip check
+        if (towerPos == default) return false;
+        float dist = Vector2.Distance(candidateXZ, new Vector2(towerPos.x, towerPos.z));
+        return dist < towerAvoidanceRadius;
+    }
+
+    private bool IsNearAnyDefender(Vector2 candidateXZ, List<Vector3> defenderPositions)
+    {
+        if (defenderPositions == null || defenderPositions.Count == 0) return false;
+        for (int i = 0; i < defenderPositions.Count; i++)
+        {
+            Vector3 def = defenderPositions[i];
+            float dist = Vector2.Distance(candidateXZ, new Vector2(def.x, def.z));
+            if (dist < defenderAvoidanceRadius) return true;
+        }
+        return false;
     }
 
 }

@@ -95,7 +95,7 @@ public static class AStar
         foreach (var possibleNeighbour in VertexPosition.possibleNeighbours)
         {
             // Use actual mesh coordinate 
-            Vector3 position = new Vector3(currentVertex.Position.x + possibleNeighbour.x, 0.2f ,currentVertex.Position.z + possibleNeighbour.y);
+            Vector3 position = new Vector3(currentVertex.Position.x + possibleNeighbour.x, 0.1f ,currentVertex.Position.z + possibleNeighbour.y);
             
             if (meshData.isValidVertex(position.x, position.z))
             {
