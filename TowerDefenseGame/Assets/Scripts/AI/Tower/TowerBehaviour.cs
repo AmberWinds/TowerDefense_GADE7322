@@ -27,7 +27,7 @@ public class TowerBehaviour : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)      //Only thing that changes health. No need to check it every frame
+    private void OnCollisionEnter(Collision collision)      //Only thing that changes currentHealth. No need to check it every frame
     {
 
     }

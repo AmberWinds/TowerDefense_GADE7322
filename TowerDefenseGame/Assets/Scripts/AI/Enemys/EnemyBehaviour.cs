@@ -19,7 +19,8 @@ public class EnemyBehaviour : MonoBehaviour
     private int currentWaypointIndex;
     [SerializeField] private float waypointReachThreshold = 4f;
 
-    private float health;
+    private float currentHealth;
+    private float maxHealth;
     private float attackDmg;
     private float attackRange = 5f;
     private float scanRadius = 12f;
@@ -34,6 +35,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private enum State { Idle, Pathing, Chasing, Attacking }
     private State state = State.Idle;
+
+    [SerializeField] FloatingHealthBar healthBar;
 
     private void Awake()
     {
@@ -50,9 +53,11 @@ public class EnemyBehaviour : MonoBehaviour
     public void BeginTracking(Enemy me)
     {
         //Need to find the closest path
-        health = me.health;
+        maxHealth = me.health;
+        currentHealth = me.health;
         attackDmg = me.attackDmg;
         state = State.Idle;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
 
         paths = GameManager.Instance.paths;
 
@@ -258,12 +263,13 @@ public class EnemyBehaviour : MonoBehaviour
         if (!other.gameObject.CompareTag("Player")) return;
 
         int dmg = other.gameObject.GetComponent<Bullet>().attackDmg;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
 
         // Apply damage
-        health -= dmg;
-        Debug.Log($"Been shot at! Took {dmg} damage, health now {health}");
+        currentHealth -= dmg;
+        Debug.Log($"Been shot at! Took {dmg} damage, currentHealth now {currentHealth}");
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
             Debug.Log("Goblin Died");

@@ -32,9 +32,17 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     private void ClickedDefender()
     {
+        bool canSpawn = EconomyManager.Instance.BuyTower();
+        if (canSpawn)
+        {
+            DefenderPlacement.Instance.SpawnInDefender(transform.position);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("Not enoughh Resources");
+        }
 
-        DefenderPlacement.Instance.SpawnInDefender(transform.position);
-        Destroy(gameObject);
     }
 
 }

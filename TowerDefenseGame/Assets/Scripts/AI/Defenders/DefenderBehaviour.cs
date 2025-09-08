@@ -34,12 +34,15 @@ public class DefenderBehaviour : MonoBehaviour
     private GameObject currentTarget;
     private float nextFireTime = 0;
 
+    [SerializeField] FloatingHealthBar healthBar;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth;
+        healthBar = GetComponentInChildren<FloatingHealthBar>();
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     // Update is called once per frame
@@ -138,7 +141,9 @@ public class DefenderBehaviour : MonoBehaviour
     public void BeAttacked(float damageTaken)
     {
         currentHealth -= damageTaken;
-        Debug.Log($"defender health is {currentHealth}");
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
+
+        Debug.Log($"defender currentHealth is {currentHealth}");
 
         if(currentHealth <= 0)
         {

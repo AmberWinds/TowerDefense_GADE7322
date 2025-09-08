@@ -27,11 +27,8 @@ public class MeshGenerator : MonoBehaviour
 
     private void Start()
     {
-        if(seed == 0)
-        {
-            seed = Random.Range(0, 1000);
-        }
-        
+        seed = Random.Range(0, 1000);
+  
         GenerateMap();
     }
 
