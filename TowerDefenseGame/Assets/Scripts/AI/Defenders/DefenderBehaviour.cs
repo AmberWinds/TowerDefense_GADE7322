@@ -34,12 +34,18 @@ public class DefenderBehaviour : MonoBehaviour
     private GameObject currentTarget;
     private float nextFireTime = 0;
 
-
+    [SerializeField] private FloatingHealthBar healthBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+<<<<<<< Updated upstream
 
+=======
+        currentHealth = maxHealth;
+        healthBar = GetComponentInChildren<FloatingHealthBar>();
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -135,9 +141,34 @@ public class DefenderBehaviour : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
 
     private void OnCollisionEnter(Collision collision)
     {
         //Check if enemies be attacking
     }
+=======
+    public void BeAttacked(float damageTaken)
+    {
+        currentHealth -= damageTaken;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        Debug.Log($"defender currentHealth is {currentHealth}");
+
+        if(currentHealth <= 0)
+        {
+            TowerBehaviour towerBehaviour = null;
+            towerBehaviour = gameObject.GetComponent<TowerBehaviour>();
+
+            if(towerBehaviour != null)
+            {
+                towerBehaviour.EndGame();
+            }
+
+            DefenderPlacement.Instance.SpawnSingleDefenderPlacement(transform.position);
+            Destroy(gameObject);
+        }
+
+    }
+
+>>>>>>> Stashed changes
 }

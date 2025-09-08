@@ -21,8 +21,16 @@ public class TowerBehaviour : MonoBehaviour
         maxHealth = currentHealth;
     }
 
+<<<<<<< Updated upstream
+=======
+    public void EndGame()
+    {
+        GamePlayManager.Instance.GameOver(false);
+    }
 
-    private void OnCollisionEnter(Collision collision)      //Only thing that changes health. No need to check it every frame
+>>>>>>> Stashed changes
+
+    private void OnCollisionEnter(Collision collision)      //Only thing that changes currentHealth. No need to check it every frame
     {
         if(collision.gameObject.tag == "Enemy")
         {

@@ -74,6 +74,9 @@ public class EnemyManager : MonoBehaviour
             
         }
 
+        yield return new WaitForSeconds(80);
+        GamePlayManager.Instance.GameOver(true);
+
         spawnRoutine = null;
     }
 

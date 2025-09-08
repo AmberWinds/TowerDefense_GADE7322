@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler        //I have never done this before so I apologise in advance.
 {
     [SerializeField] private Renderer targetRenderer;
+    [SerializeField] private EconomyManager economyManager;
     [SerializeField] private Color hoverColor = Color.yellow;
     private Color originalColour;
 
@@ -34,7 +35,20 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+<<<<<<< Updated upstream
         
+=======
+        bool canSpawn = EconomyManager.Instance.BuyTower();
+
+        if (canSpawn)
+        {
+            DefenderPlacement.Instance.SpawnInDefender(transform.position);
+            Destroy(gameObject);
+        }
+
+        Debug.LogWarning("Can't Purchase Tower");
+
+>>>>>>> Stashed changes
     }
 
 
