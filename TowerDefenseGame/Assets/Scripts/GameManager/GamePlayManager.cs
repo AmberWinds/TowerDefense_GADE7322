@@ -9,8 +9,6 @@ public class GamePlayManager : MonoBehaviour
      * Manages Economy
      */
 
-<<<<<<< Updated upstream
-=======
     public static GamePlayManager Instance {  get; private set; }
 
     public GameObject canvas;
@@ -78,9 +76,6 @@ public class GamePlayManager : MonoBehaviour
         Time.timeScale = 1.0f;
         pauseBtn.image.sprite = pause;
     }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 
 }
