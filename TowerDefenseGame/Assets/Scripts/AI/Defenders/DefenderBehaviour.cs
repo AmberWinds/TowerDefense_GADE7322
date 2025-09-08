@@ -12,7 +12,7 @@ public class DefenderBehaviour : MonoBehaviour
 
     [Header("Health")]
     public int maxHealth;
-    private int currentHealth;
+    private float currentHealth;
 
     [Header("Detection")]
     public float attackRadius;
@@ -39,7 +39,7 @@ public class DefenderBehaviour : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -133,6 +133,27 @@ public class DefenderBehaviour : MonoBehaviour
                 Gizmos.DrawLine(transform.position, currentTarget.transform.position);
             }
         }
+    }
+
+    public void BeAttacked(float damageTaken)
+    {
+        currentHealth -= damageTaken;
+        Debug.Log($"defender health is {currentHealth}");
+
+        if(currentHealth <= 0)
+        {
+            TowerBehaviour towerBehaviour = null;
+            towerBehaviour = gameObject.GetComponent<TowerBehaviour>();
+
+            if(towerBehaviour != null)
+            {
+                towerBehaviour.EndGame();
+            }
+
+            DefenderPlacement.Instance.SpawnSingleDefenderPlacement(transform.position);
+            Destroy(gameObject);
+        }
+
     }
 
 

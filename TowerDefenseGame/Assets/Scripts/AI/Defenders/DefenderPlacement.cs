@@ -50,4 +50,10 @@ public class DefenderPlacement : MonoBehaviour
         Instantiate(defender, location, Quaternion.identity, transform);
     }
 
+    public void SpawnSingleDefenderPlacement(Vector3 location)
+    {
+       GameObject obj = Instantiate(tempDefender, location, Quaternion.identity, transform);
+        obj .transform.localScale = tempDefScale;
+    }
+
 }

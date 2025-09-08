@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyBehaviour : MonoBehaviour 
 {
@@ -20,14 +21,29 @@ public class EnemyBehaviour : MonoBehaviour
 
     private float health;
     private float attackDmg;
+    private float attackRange = 5f;
+    private float scanRadius = 12f;
+    private float attackRate = 5f;
+    private float scanRate = 1f;
+    
+    private GameObject target;
+    private DefenderBehaviour targetDef; 
 
+    private float nextScanTime;
+    private float nextAttackTime;
+
+    private enum State { Idle, Pathing, Chasing, Attacking }
+    private State state = State.Idle;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         if (animator != null) animator.SetBool("isIdle", true);
+
         agent = GetComponent<NavMeshAgent>();
         currentPath = new List<Vector3>();
+
+        currentWaypointIndex = 0;
 
     }
 
@@ -36,6 +52,7 @@ public class EnemyBehaviour : MonoBehaviour
         //Need to find the closest path
         health = me.health;
         attackDmg = me.attackDmg;
+        state = State.Idle;
 
         paths = GameManager.Instance.paths;
 
@@ -44,11 +61,13 @@ public class EnemyBehaviour : MonoBehaviour
         if (currentPath != null && currentPath.Count > 0 && agent != null)
         {
             MoveToCurrentWaypoint();
+            state = State.Pathing;
         }
         else if (agent != null && GameManager.Instance != null && GameManager.Instance.mainTower != null)
         {
             // Fallback: if no valid path, move directly to the main tower so enemies don't stall
             agent.SetDestination(GameManager.Instance.mainTower.transform.position);
+            state = State.Pathing;
             if (animator != null)
             {
                 animator.SetBool("isIdle", false);
@@ -75,7 +94,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (bestPath != null && bestPath.Count > 0)
         {
             currentPath = bestPath;
-            currentWaypointIndex = 0;
+            //currentWaypointIndex = 0;
         }
 
     }
@@ -85,14 +104,114 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
 
-        // If close enough to current waypoint, advance to the next
-        float sqrDist = (new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(currentPath[currentWaypointIndex].x, 0, currentPath[currentWaypointIndex].z)).sqrMagnitude;
-        float reach = Mathf.Max(waypointReachThreshold, agent.stoppingDistance + 0.1f);
-        if (sqrDist <= reach * reach)
+        if (Time.time >= nextScanTime)
         {
-            AdvanceWaypoint();
+            nextScanTime = Time.time + scanRate;
+            RefreshOrAcquireTarget();
+        }
+
+        if (target != null)
+        {
+            float Dist = Vector3.Distance(transform.position, target.transform.position);
+            if (Dist > attackRange)     //Oustide attack range
+            {
+                //Chase target Down
+                state = State.Chasing;
+                agent.stoppingDistance = Mathf.Max(attackRange * 0.9f, 0.1f);
+                agent.SetDestination(target.transform.position);
+            }
+            else
+            {
+                //At TargetWalls
+                state= State.Attacking;
+                agent.isStopped = true; //Stop Agent Moving.
+                animator.SetBool("isAttacking", true);
+                animator.SetBool("isWalking", false);
+
+                Attack(target);
+                return;
+            }
+
+        }
+        else
+        {
+            state = State.Pathing;
+
+            agent.isStopped = false;          
+            agent.stoppingDistance = 0f;
+
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isIdle", false);;
+        }
+
+        //Pathing Logic
+        if (currentPath != null && state == State.Pathing)
+        {
+            // If close enough to current waypoint, advance to the next
+            float sqrDist = (new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(currentPath[currentWaypointIndex].x, 0, currentPath[currentWaypointIndex].z)).sqrMagnitude;
+            float reach = Mathf.Max(waypointReachThreshold, agent.stoppingDistance + 0.1f);
+
+            if (sqrDist <= reach * reach)
+            {
+                AdvanceWaypoint();
+            }
+            else
+            {
+                MoveToCurrentWaypoint();
+            }
+
+
+        }
+        else if(currentPath == null && state == State.Pathing)
+        {
+            FindAndAssignClosestPath();
+            MoveToCurrentWaypoint();
+            Debug.Log("repathing goblin");
+        }
+
+
+
+    }
+
+    private void RefreshOrAcquireTarget()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, scanRadius);
+        
+        foreach(Collider collider in hitColliders)
+        {
+            if(collider.gameObject.GetComponent<DefenderBehaviour>() != null)
+            {
+                target = collider.gameObject;
+                break;
+            }
+            else
+            {
+                target = null;
+            }
         }
     }
+
+    public void Attack(GameObject target)
+    {
+        //face the target
+        Vector3 dir = (target.transform.position - transform.position);
+        currentPath = null;
+
+        if (dir.sqrMagnitude > 0.001f)
+        {
+            Quaternion look = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, look, 10f * Time.deltaTime);
+        }
+
+        if (Time.time < nextAttackTime) return;
+
+        nextAttackTime = Time.time + (1f / Mathf.Max(attackRate, 0.01f));
+        targetDef = target.GetComponent<DefenderBehaviour>();
+        targetDef.BeAttacked(attackDmg);
+
+    }
+
 
     private void MoveToCurrentWaypoint()
     {
@@ -134,13 +253,11 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
-            
-        int dmg = collision.gameObject.GetComponent<Bullet>().attackDmg;
+        if (!other.gameObject.CompareTag("Player")) return;
 
-        Debug.Log($"Damage taken = {dmg}");
+        int dmg = other.gameObject.GetComponent<Bullet>().attackDmg;
 
         // Apply damage
         health -= dmg;

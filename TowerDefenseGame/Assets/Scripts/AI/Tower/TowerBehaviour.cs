@@ -21,18 +21,14 @@ public class TowerBehaviour : MonoBehaviour
         maxHealth = currentHealth;
     }
 
+    public void EndGame()
+    {
+        Debug.Log("End Game");
+    }
+
 
     private void OnCollisionEnter(Collision collision)      //Only thing that changes health. No need to check it every frame
     {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            currentHealth-= 50;
-            if(currentHealth <= 0)
-            {
-                Debug.Log("Game Over");
-            }
 
-            Debug.Log("Goblin has Reached the Tower");
-        }
     }
 }
