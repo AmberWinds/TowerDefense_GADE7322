@@ -567,6 +567,9 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1 &7842888822707930003
 GameObject:
@@ -718,9 +721,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   maxHealth: 50
   attackRadius: 25
 =======
+=======
+>>>>>>> Stashed changes
   maxHealth: 300
   attackRadius: 15
 >>>>>>> Stashed changes
@@ -734,6 +740,9 @@ MonoBehaviour:
   projectileSpeed: 15
   fireRate: 1.2
   dmg: 5
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   showDetectionRadius: 1
   healthBar: {fileID: 0}

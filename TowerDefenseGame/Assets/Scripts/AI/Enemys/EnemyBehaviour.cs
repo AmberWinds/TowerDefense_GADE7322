@@ -36,6 +36,9 @@ public class EnemyBehaviour : MonoBehaviour
 =======
         currentWaypointIndex = 0;
         healthBar = GetComponentInChildren<FloatingHealthBar>();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 
@@ -50,6 +53,9 @@ public class EnemyBehaviour : MonoBehaviour
         state = State.Idle;
         
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
         paths = GameManager.Instance.paths;

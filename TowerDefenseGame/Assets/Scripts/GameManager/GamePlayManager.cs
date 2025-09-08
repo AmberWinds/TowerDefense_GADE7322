@@ -78,6 +78,9 @@ public class GamePlayManager : MonoBehaviour
         Time.timeScale = 1.0f;
         pauseBtn.image.sprite = pause;
     }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 }

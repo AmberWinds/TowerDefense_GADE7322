@@ -36,7 +36,20 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
     void Start()
     {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         
+=======
+        bool canSpawn = EconomyManager.Instance.BuyTower();
+
+        if (canSpawn)
+        {
+            DefenderPlacement.Instance.SpawnInDefender(transform.position);
+            Destroy(gameObject);
+        }
+
+        Debug.LogWarning("Can't Purchase Tower");
+
+>>>>>>> Stashed changes
 =======
         bool canSpawn = EconomyManager.Instance.BuyTower();
 
