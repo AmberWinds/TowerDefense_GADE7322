@@ -1,2 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Use Unity's YAML merge tool for text-based Unity assets
+*.unity  merge=unityyamlmerge
+*.prefab merge=unityyamlmerge
+*.asset  merge=unityyamlmerge
+*.mat    merge=unityyamlmerge
+*.anim   merge=unityyamlmerge
+
+# For .meta files, keep both sides' lines where possible
+*.meta   merge=union
