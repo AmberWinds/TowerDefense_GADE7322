@@ -23,6 +23,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private FloatingHealthBar healthBar;
 
     private float attackDmg;
+    public enum State { Idle, Chasing, Attacking, Dying}
+    public State state;
 
 
     private void Awake()
@@ -32,14 +34,10 @@ public class EnemyBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         currentPath = new List<Vector3>();
 
-<<<<<<< Updated upstream
-=======
+
         currentWaypointIndex = 0;
         healthBar = GetComponentInChildren<FloatingHealthBar>();
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
     }
 
     public void BeginTracking(Enemy me)
@@ -48,15 +46,11 @@ public class EnemyBehaviour : MonoBehaviour
         maxHealth = me.health;
         currentHealth = maxHealth;
         attackDmg = me.attackDmg;
-<<<<<<< Updated upstream
-=======
+
         state = State.Idle;
         
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 
         paths = GameManager.Instance.paths;
 

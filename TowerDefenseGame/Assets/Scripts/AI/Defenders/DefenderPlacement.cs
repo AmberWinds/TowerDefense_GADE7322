@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DefenderPlacement : MonoBehaviour
 {
+    public static DefenderPlacement Instance { get; private set; }
+
     /* Okay,, so this one will handle the Spawning of the enemis as well as managin the placement depending on pathing.
      *  Spawning can be based off of the GridPlacement thingy class.
      *  
@@ -17,9 +19,16 @@ public class DefenderPlacement : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     public void SpawnDefenderPlacements(List<Vector3> defenderPositions, List<Vector3> defenderDirections)
@@ -36,6 +45,11 @@ public class DefenderPlacement : MonoBehaviour
             defender.transform.localScale = tempDefScale;
 
         }
+    }
+
+    public void SpawnInDefender(Vector3 location)
+    {
+        Instantiate(defender, location, Quaternion.identity, transform);
     }
 
     // Update is called once per frame
