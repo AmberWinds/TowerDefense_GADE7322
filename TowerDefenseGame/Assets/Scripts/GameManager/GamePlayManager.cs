@@ -11,7 +11,7 @@ public class GamePlayManager : MonoBehaviour
 
     public static GamePlayManager Instance {  get; private set; }
 
-    public GameObject canvas;
+    public GameObject gameOverCanvas;
     public TextMeshProUGUI gameOverText;
     public Sprite pause;
     public Sprite resume;
@@ -34,13 +34,13 @@ public class GamePlayManager : MonoBehaviour
     {
         if (win)
         {
-            canvas.SetActive(true);
+            gameOverCanvas.SetActive(true);
             gameOverText.text = "You Win";
             Time.timeScale = 0f;
         }
         else
         {
-            canvas.SetActive(true);
+            gameOverCanvas.SetActive(true);
             gameOverText.text = "You Lose";
             Time.timeScale = 0f;
         }
