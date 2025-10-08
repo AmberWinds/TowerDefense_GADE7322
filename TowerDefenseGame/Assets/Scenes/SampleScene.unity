@@ -1314,6 +1314,7 @@ MonoBehaviour:
   spawner: {fileID: 274422656}
   spawnPosAmount: 5
   navigation: {fileID: 1050736313}
+  defenderPlacement: {fileID: 274422662}
   defenderAmount: 6
   sideOffset: 8.2
   closed: 0

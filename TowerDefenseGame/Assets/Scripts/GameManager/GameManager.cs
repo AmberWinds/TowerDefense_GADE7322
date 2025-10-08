@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public NavigationUpdate navigation;
 
     [Header("Defenders")]
+    public DefenderPlacement defenderPlacement;
     public int defenderAmount;
     public float sideOffset;
     public bool closed = false;         //Treat Paths as Loops
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
         Pathing.instance.SpawnPaths(meshdata);
 
         FindDefenderPlacements();
-        DefenderPlacement.Instance.SpawnDefenderPlacements(defenderPositions, defenderDirections);
+        defenderPlacement.SpawnDefenderPlacements(defenderPositions, defenderDirections);
 
         UpdateMeshAfterFlattening();
         

@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRenderer: {fileID: 3124511599258285522}
-  hoverColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0.6886792, g: 0.63995194, b: 0.63995194, a: 1}
