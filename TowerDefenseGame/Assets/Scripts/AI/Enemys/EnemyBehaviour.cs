@@ -23,8 +23,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private FloatingHealthBar healthBar;
 
     private float attackDmg;
-    public enum State { Idle, Chasing, Attacking, Dying}
-    public State state;
+    State state;
+
+    enum State { Idle, Attack, Walk, Death };
 
 
     private void Awake()
@@ -34,6 +35,7 @@ public class EnemyBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         currentPath = new List<Vector3>();
 
+        state = State.Idle;
 
         currentWaypointIndex = 0;
         healthBar = GetComponentInChildren<FloatingHealthBar>();

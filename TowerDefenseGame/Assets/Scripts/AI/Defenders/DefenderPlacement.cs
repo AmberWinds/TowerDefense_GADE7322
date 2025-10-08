@@ -47,9 +47,9 @@ public class DefenderPlacement : MonoBehaviour
         }
     }
 
-    public void SpawnInDefender(Vector3 location)
+    public void SpawnInDefender(Vector3 vec)
     {
-        Instantiate(defender, location, Quaternion.identity, transform);
+        
     }
 
     // Update is called once per frame
