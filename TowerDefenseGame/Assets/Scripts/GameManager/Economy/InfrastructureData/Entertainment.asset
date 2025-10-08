@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71c8d67177e03e4aa3e928ec9fc89b0, type: 3}
+  m_Name: Entertainment
+  m_EditorClassIdentifier: 
+  name: Entertainment
+  icon: {fileID: 1438867475, guid: a5129965d9f7c604cb1842f6662f7e07, type: 3}
+  baseCost: 600
+  incomePerTick: 100
+  costMultiplier: 2

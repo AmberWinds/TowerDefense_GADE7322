@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3048867068875111125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 395661932731984707}
+  - component: {fileID: 2574503819257009765}
+  - component: {fileID: 4307023034576343785}
+  - component: {fileID: 3449685049158849958}
+  m_Layer: 0
+  m_Name: Economymanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &395661932731984707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048867068875111125}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1263.3264, y: 601.3141, z: 129.11601}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2574503819257009765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048867068875111125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed6979e10482b64ca3b7c8c0f70d179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tickInterval: 10
+  resources: 500
+  totalResourcesText: {fileID: 0}
+  defenderPrice: 50
+  dataLog:
+  - {fileID: 11400000, guid: 9ab883eb9ce71c843ba63c82619b7649, type: 2}
+  - {fileID: 11400000, guid: dc834ba6316a564488617447656a6623, type: 2}
+  - {fileID: 11400000, guid: f1cc8a616fa2bfb408428e59980c6b38, type: 2}
+  - {fileID: 11400000, guid: 6ec8093a56019304db6ff3c5f4aa5a45, type: 2}
+  ui: {fileID: 4307023034576343785}
+--- !u!114 &4307023034576343785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048867068875111125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2494250aea13a64a9f0771f0b694541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AgriOwned: {fileID: 0}
+  MineOwned: {fileID: 0}
+  EntOwned: {fileID: 0}
+  ResOwned: {fileID: 0}
+  AgriCost: {fileID: 0}
+  MineCost: {fileID: 0}
+  EntCost: {fileID: 0}
+  ResCost: {fileID: 0}
+  EconomyManager: {fileID: 2574503819257009765}
+  Shop: {fileID: 0}
+--- !u!114 &3449685049158849958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048867068875111125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f83ebefd6106d54884cd6fafbc69648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  gameOverText: {fileID: 0}
+  pause: {fileID: 932611534, guid: a5129965d9f7c604cb1842f6662f7e07, type: 3}
+  resume: {fileID: -897676795, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  pauseBtn: {fileID: 0}
