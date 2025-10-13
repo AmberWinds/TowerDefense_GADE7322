@@ -41,7 +41,6 @@ public class TowerBehaviour : MonoBehaviour
                 Debug.Log("Game Over");
             }
 
-            Debug.Log("Goblin has Reached the Tower");
         }
     }
 }

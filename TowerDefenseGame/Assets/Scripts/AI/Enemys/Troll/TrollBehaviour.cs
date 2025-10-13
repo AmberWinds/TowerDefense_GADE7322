@@ -8,37 +8,38 @@ public class TrollBehaviour : EnemyBehaviour
      *  VERY Vulnerable to PLANTS
      */
 
-    private void Update()
+    protected override void OnTick()
     {
         switch (state)
         {
             case State.Idle:
-                        animator.SetBool("isIdle", true);
-                        animator.SetBool("isWalking", false);
-                        animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", true);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isAttacking", false);
                 break;
             case State.Pathing:
-                    animator.SetBool("isIdle", false);
-                    animator.SetBool("isWalking", true);
-                    animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isAttacking", false);
                 break;
             case State.Chasing:
-                        animator.SetBool("isIdle", false);
-                        animator.SetBool("isWalking", true);
-                        animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isAttacking", false);
                 break;
             case State.Attacking:
-                    animator.SetBool("isIdle", false);
-                    animator.SetBool("isWalking", false);
-                    animator.SetBool("isAttacking", true);
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isAttacking", true);
                 break;
             default:
-                        animator.SetBool("isIdle", true);
-                        animator.SetBool("isWalking", false);
-                        animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", true);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isAttacking", false);
                 break;
         }
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

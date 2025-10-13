@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 800
-  dmg: 50
+  dmg: 20
 --- !u!114 &-2321637583199503665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,7 +614,7 @@ MonoBehaviour:
   head: {fileID: 411524}
   projectileSpeed: 50
   fireRate: 1
-  dmg: 50
+  dmg: 20
   showDetectionRadius: 1
   type: 0
 --- !u!136 &6085970814237182039

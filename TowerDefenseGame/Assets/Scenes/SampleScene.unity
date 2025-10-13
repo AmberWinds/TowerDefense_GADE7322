@@ -2892,7 +2892,7 @@ MonoBehaviour:
   defenderPlacement: {fileID: 274422662}
   defenderAmount: 6
   sideOffset: 5
-  closed: 0
+  closed: 1
   flattenRadius: 4.6
   flattenHeight: 0
   enemySpawnPos: []
@@ -2912,15 +2912,15 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 5868329331705110207, guid: f1e6e536b9b15184a9ce178fb2227861, type: 3}
     enemyTypeName: Goblin
     attackDmg: 10
-    attackRadius: 5
+    attackRadius: 15
     health: 30
-    speed: 5
+    speed: 4
   - enemyPrefab: {fileID: 3340169974791533733, guid: 59cbc1f8ed409544c9f14ebd156966ce, type: 3}
     enemyTypeName: Troll
-    attackDmg: 30
-    attackRadius: 5
-    health: 120
-    speed: 2
+    attackDmg: 20
+    attackRadius: 15
+    health: 60
+    speed: 2.3
   spawnDelay: 10
   maxSpawn: 40
 --- !u!114 &1875627874 stripped

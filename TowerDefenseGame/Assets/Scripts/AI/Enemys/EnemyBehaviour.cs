@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyBehaviour : MonoBehaviour 
+public abstract class EnemyBehaviour : MonoBehaviour 
 {
     /* Will be placed on the Enemy themselves.
      *  - Manage Navigation.
@@ -57,7 +57,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void BeginTracking(Enemy me)
     {
-
         //Assign Health
         maxHealth = me.health;
         health = maxHealth;
@@ -68,7 +67,6 @@ public class EnemyBehaviour : MonoBehaviour
         healthBar.UpdateHealthBar(health, maxHealth);
         state = State.Idle;
 
-        
         //Need to find the closest path
         paths = GameManager.Instance.paths;
 
@@ -105,7 +103,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (bestPath != null && bestPath.Count > 0)
         {
-            currentPath = bestPath;
+            currentPath = new List<Vector3>(bestPath);
             currentWaypointIndex += 2;
         }
 
@@ -113,17 +111,19 @@ public class EnemyBehaviour : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-
         if (Time.time >= nextScanTime)
         {
             nextScanTime = Time.time + scanRate;
             RefreshOrAcquireTarget();
         }
 
-        if (target != null)
+        //Chasing
+        if (target != null)     //There us a Target
         {
+            Debug.Log("HAS A TARGET");
+
             float Dist = Vector3.Distance(transform.position, target.transform.position);
             if (Dist > attackRange)     //Oustide attack range
             {
@@ -153,10 +153,12 @@ public class EnemyBehaviour : MonoBehaviour
         //Pathing Logic
         if (currentPath != null && state == State.Pathing)
         {
-            // If close enough to current waypoint, advance to the next
-            Debug.Log(currentWaypointIndex);
-            Debug.Log(currentPath.Count);
+            if(currentPath.Count == 0)
+            {
+                Debug.Log("currentPath has no points");
+            }
 
+            // If close enough to current waypoint, advance to the next
             float sqrDist = (new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(currentPath[currentWaypointIndex].x, 0, currentPath[currentWaypointIndex].z)).sqrMagnitude;
             float reach = Mathf.Max(waypointReachThreshold, agent.stoppingDistance + 0.1f);
 
@@ -178,9 +180,10 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("repathing enemy");
         }
 
-
-
+        OnTick();
     }
+
+    protected virtual void OnTick() { } // override in children
 
     public void RefreshOrAcquireTarget()
     {
@@ -188,6 +191,7 @@ public class EnemyBehaviour : MonoBehaviour
         float best = float.PositiveInfinity;
         GameObject bestGO = null;
         var path = new NavMeshPath();
+
 
         foreach (var c in hits)
         {
@@ -198,15 +202,30 @@ public class EnemyBehaviour : MonoBehaviour
             if (d < best && NavMesh.CalculatePath(transform.position, c.transform.position, NavMesh.AllAreas, path)
                          && path.status == NavMeshPathStatus.PathComplete)
             {
-                best = d; bestGO = c.gameObject;
+                best = d; 
+                bestGO = c.gameObject;
+            }
+
+            if(bestGO == null)
+            {
+                Debug.Log("bestGo is null");
             }
         }
 
         target = bestGO; // null if none reachable
+
+        if(target != null)
+        {
+            Debug.Log("Target found in AquireTarget");
+        }
     }
 
     public void Attack(GameObject target)
     {
+        state = State.Attacking;
+        Debug.Log("ATTACCKKKKK");
+
+
         //face the target
         Vector3 dir = (target.transform.position - transform.position);
         currentPath = null;
@@ -232,14 +251,10 @@ public class EnemyBehaviour : MonoBehaviour
         {
             currentWaypointIndex = currentPath.Count -1;
         }
-        Vector3 target = currentPath[currentWaypointIndex];
 
+        Vector3 target = currentPath[currentWaypointIndex];
         agent.SetDestination(target);
-        if (animator != null)
-        {
-            animator.SetBool("isIdle", false);
-            animator.SetBool("isWalking", true);
-        }
+
     }
 
     private void AdvanceWaypoint()
@@ -256,11 +271,6 @@ public class EnemyBehaviour : MonoBehaviour
             if (agent != null)
             {
                 agent.ResetPath();
-            }
-            if (animator != null)
-            {
-                animator.SetBool("isAttacking", true);
-                animator.SetBool("isWalking", false);
             }
         }
     }
@@ -309,7 +319,6 @@ public class EnemyBehaviour : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
-            Debug.Log("Goblin Died");
         }
     }
 

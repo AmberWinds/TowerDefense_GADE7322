@@ -10,43 +10,42 @@ public class GoblinBehaviour : EnemyBehaviour
 
     private void Start()
     {
-        animator.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+       animator.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
     }
 
-
-
-    private void Update()
+    protected override void OnTick()
     {
-
+        animator.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
         switch (state)
         {
             case State.Idle:
-                            animator.SetBool("isIdle", true);
-                            animator.SetBool("isWalking", false);
-                            animator.SetBool("isAttacking", false);              
+                animator.SetBool("isIdle", true);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isAttacking", false);
                 break;
             case State.Pathing:
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("isWalking", true);
-                            animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isAttacking", false);
                 break;
             case State.Chasing:
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("isWalking", true);
-                            animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isWalking", true);
+                animator.SetBool("isAttacking", false);
                 break;
             case State.Attacking:
-                            animator.SetBool("isIdle", false);
-                            animator.SetBool("isWalking", false);
-                            animator.SetBool("isAttacking", true);
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isAttacking", true);
                 break;
             default:
-                            animator.SetBool("isIdle", true);
-                            animator.SetBool("isWalking", false);
-                            animator.SetBool("isAttacking", false);
+                animator.SetBool("isIdle", true);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isAttacking", false);
                 break;
         }
     }
+
 
 
     private void OnTriggerEnter(Collider other)
