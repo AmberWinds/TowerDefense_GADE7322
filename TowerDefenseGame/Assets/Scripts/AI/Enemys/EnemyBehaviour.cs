@@ -20,6 +20,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float waypointReachThreshold = 4f;
 
     private float health;
+    private float maxHealth;
     private float attackDmg;
     private float attackRange = 5f;
     private float scanRadius = 12f;
@@ -28,6 +29,7 @@ public class EnemyBehaviour : MonoBehaviour
     
     private GameObject target;
     private DefenderBehaviour targetDef; 
+    FloatingHealthBar healthBar;
 
     private float nextScanTime;
     private float nextAttackTime;
@@ -40,6 +42,8 @@ public class EnemyBehaviour : MonoBehaviour
         animator = GetComponent<Animator>();
         if (animator != null) animator.SetBool("isIdle", true);
 
+        healthBar = GetComponentInChildren<FloatingHealthBar>();
+
         agent = GetComponent<NavMeshAgent>();
         currentPath = new List<Vector3>();
 
@@ -50,8 +54,10 @@ public class EnemyBehaviour : MonoBehaviour
     public void BeginTracking(Enemy me)
     {
         //Need to find the closest path
-        health = me.health;
+        maxHealth = me.health;
+        health = maxHealth;
         attackDmg = me.attackDmg;
+        healthBar.UpdateHealthBar(health, maxHealth);
         state = State.Idle;
 
         paths = GameManager.Instance.paths;
@@ -94,7 +100,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (bestPath != null && bestPath.Count > 0)
         {
             currentPath = bestPath;
-            //currentWaypointIndex = 0;
+            currentWaypointIndex += 2;
         }
 
     }
@@ -110,6 +116,7 @@ public class EnemyBehaviour : MonoBehaviour
             RefreshOrAcquireTarget();
         }
 
+
         if (target != null)
         {
             float Dist = Vector3.Distance(transform.position, target.transform.position);
@@ -117,6 +124,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 //Chase target Down
                 state = State.Chasing;
+                agent.isStopped = false;
                 agent.stoppingDistance = Mathf.Max(attackRange * 0.9f, 0.1f);
                 agent.SetDestination(target.transform.position);
             }
@@ -176,20 +184,25 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void RefreshOrAcquireTarget()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, scanRadius);
-        
-        foreach(Collider collider in hitColliders)
+        Collider[] hits = Physics.OverlapSphere(transform.position, scanRadius);
+        float best = float.PositiveInfinity;
+        GameObject bestGO = null;
+        var path = new NavMeshPath();
+
+        foreach (var c in hits)
         {
-            if(collider.gameObject.GetComponent<DefenderBehaviour>() != null)
+            var def = c.GetComponent<DefenderBehaviour>();
+            if (!def) continue;
+
+            float d = Vector3.SqrMagnitude(c.transform.position - transform.position);
+            if (d < best && NavMesh.CalculatePath(transform.position, c.transform.position, NavMesh.AllAreas, path)
+                         && path.status == NavMeshPathStatus.PathComplete)
             {
-                target = collider.gameObject;
-                break;
-            }
-            else
-            {
-                target = null;
+                best = d; bestGO = c.gameObject;
             }
         }
+
+        target = bestGO; // null if none reachable
     }
 
     public void Attack(GameObject target)
@@ -234,7 +247,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (currentPath == null || currentPath.Count == 0) return;
         if (currentWaypointIndex < currentPath.Count - 1)
         {
-            currentWaypointIndex += 4;                                  //trying to make it more smooth by moving two indexes
+            currentWaypointIndex += 3;                                  //trying to make it more smooth by moving two indexes
             MoveToCurrentWaypoint();
         }
         else
@@ -261,7 +274,9 @@ public class EnemyBehaviour : MonoBehaviour
 
         // Apply damage
         health -= dmg;
+        healthBar.UpdateHealthBar(health, maxHealth);
         Debug.Log($"Been shot at! Took {dmg} damage, health now {health}");
+        
 
         if (health <= 0)
         {

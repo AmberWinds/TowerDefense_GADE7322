@@ -13,6 +13,7 @@ public class DefenderBehaviour : MonoBehaviour
     [Header("Health")]
     public int maxHealth;
     private float currentHealth;
+    FloatingHealthBar healthBar;
 
     [Header("Detection")]
     public float attackRadius;
@@ -40,6 +41,8 @@ public class DefenderBehaviour : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        healthBar = GetComponentInChildren<FloatingHealthBar>();
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     // Update is called once per frame
@@ -154,6 +157,7 @@ public class DefenderBehaviour : MonoBehaviour
             Destroy(gameObject);
         }
 
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
 

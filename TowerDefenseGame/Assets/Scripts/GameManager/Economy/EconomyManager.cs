@@ -13,7 +13,7 @@ public class EconomyManager : MonoBehaviour
     [Header("Resources")]
     public double resources;                 //Money Basically
     public TextMeshProUGUI totalResourcesText;
-    public double defenderPrice = 50;
+    public double defenderPrice = 20;
 
     [Header("Infrastructure")]
     public List<InfrastructureData> dataLog;
