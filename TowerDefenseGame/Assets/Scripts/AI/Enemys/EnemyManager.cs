@@ -14,7 +14,6 @@ public class EnemyManager : MonoBehaviour
      *  - Manage Rate at which enemies Spawn.
      * 
      */
-
     public static EnemyManager Instance { get; private set; }
 
     private List<Vector3> enemySpawnPos;
@@ -38,11 +37,6 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     public void BeginSpawningEnemies()
     {
@@ -83,8 +77,21 @@ public class EnemyManager : MonoBehaviour
 public class Enemy
 {
     public GameObject enemyPrefab;
+    public string enemyTypeName;
     public float attackDmg;
+    public float attackRadius;
     public float health;
     public float speed;
 
 }
+
+
+
+
+
+
+
+////BIG CHECK
+//if (go.GetComponent<GoblinBehaviour>() != null) go.GetComponent<GoblinBehaviour>().BeginTracking(enemy);
+//if (go.GetComponent<SkeletonBehaviour>() != null) go.GetComponent<SkeletonBehaviour>().BeginTracking(enemy);
+//if (go.GetComponent<TrollBehaviour>() != null) go.GetComponent<TrollBehaviour>().BeginTracking(enemy);

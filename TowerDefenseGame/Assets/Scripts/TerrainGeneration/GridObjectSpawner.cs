@@ -26,9 +26,9 @@ public class GridObjectSpawner : MonoBehaviour
     public List<ObjectSpawnRule> spawnRules;
 
     [Header("Avoidance Radii")]
-    [SerializeField] float pathAvoidanceRadius = 2.0f;
-    [SerializeField] float towerAvoidanceRadius = 6.0f;
-    [SerializeField] float defenderAvoidanceRadius = 4.0f;
+    [SerializeField] float pathAvoidanceRadius = 5.0f;
+    [SerializeField] float towerAvoidanceRadius = 5.0f;
+    [SerializeField] float defenderAvoidanceRadius = 5.0f;
 
 
     private void Awake()

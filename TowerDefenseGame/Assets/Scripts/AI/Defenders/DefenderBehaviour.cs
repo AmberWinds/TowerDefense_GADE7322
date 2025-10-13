@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DefenderBehaviour : MonoBehaviour
@@ -35,7 +36,10 @@ public class DefenderBehaviour : MonoBehaviour
     private GameObject currentTarget;
     private float nextFireTime = 0;
 
+    private enum defenderType { basic, plant, dark }
 
+    [Header("Type")]
+    [SerializeField] defenderType type;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,11 +49,11 @@ public class DefenderBehaviour : MonoBehaviour
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
+
     // Update is called once per frame
     void Update()
     {
         DetectTargets();
-
 
         if(currentTarget != null)
         {
@@ -58,18 +62,13 @@ public class DefenderBehaviour : MonoBehaviour
                 nextFireTime = Time.time + 1f/fireRate;
                 AttackTargets();
             }
-
-            
+          
         }
     }
 
     private void AttackTargets()
     {
-
-        Debug.Log("SHOOT");
-
-        head.LookAt(currentTarget.transform.position, Vector3.up);
-        
+        head.LookAt(currentTarget.transform.position, Vector3.up);    
 
         Vector3 direction = (currentTarget.transform.position - muzzle.position).normalized;
         GameObject projectile = Instantiate(projectilePrefab, muzzle.position, head.localRotation, transform);
@@ -78,10 +77,29 @@ public class DefenderBehaviour : MonoBehaviour
         if(gameObject.GetComponent<TowerBehaviour>() != null)
         {
             projectile.GetComponent<Bullet>().attackDmg = gameObject.GetComponent<TowerBehaviour>().dmg;
+
         }
         else
         {
+            switch(type)
+            {
+                case defenderType.basic:
+                    projectile.GetComponent<Bullet>().SetType(Bullet.defenderType.basic);
+                    break;
+                case defenderType.plant:
+                    projectile.GetComponent<Bullet>().SetType(Bullet.defenderType.plant);
+                    break;
+                case defenderType.dark:
+                    projectile.GetComponent<Bullet>().SetType(Bullet.defenderType.dark);
+                    break;
+                default:
+                    projectile.GetComponent<Bullet>().SetType(Bullet.defenderType.basic);
+                    break;
+            }
+
+
             projectile.GetComponent<Bullet>().attackDmg = dmg;
+
         }
 
         Rigidbody rb = projectile.GetComponent<Rigidbody>();

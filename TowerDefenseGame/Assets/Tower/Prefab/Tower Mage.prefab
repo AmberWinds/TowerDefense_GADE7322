@@ -616,6 +616,7 @@ MonoBehaviour:
   fireRate: 1
   dmg: 50
   showDetectionRadius: 1
+  type: 0
 --- !u!136 &6085970814237182039
 CapsuleCollider:
   m_ObjectHideFlags: 0

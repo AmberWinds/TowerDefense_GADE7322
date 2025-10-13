@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,11 +13,14 @@ public class EnemyBehaviour : MonoBehaviour
      *  - Will Manage Destruction / pooling depending.
      */
 
-    private Animator animator;
+    [HideInInspector]
+    public Animator animator;
     private NavMeshAgent agent;
     private LinkedList<List<Vector3>> paths;
     private List<Vector3> currentPath;
-    private int currentWaypointIndex;
+
+    [HideInInspector]
+    public int currentWaypointIndex;
     [SerializeField] private float waypointReachThreshold = 4f;
 
     private float health;
@@ -26,25 +30,25 @@ public class EnemyBehaviour : MonoBehaviour
     private float scanRadius = 12f;
     private float attackRate = 5f;
     private float scanRate = 1f;
-    
-    private GameObject target;
+
+    [HideInInspector]
+    public GameObject target;
     private DefenderBehaviour targetDef; 
     FloatingHealthBar healthBar;
 
     private float nextScanTime;
     private float nextAttackTime;
 
-    private enum State { Idle, Pathing, Chasing, Attacking }
-    private State state = State.Idle;
+    [HideInInspector]
+    public enum State { Idle, Pathing, Chasing, Attacking }
+    [HideInInspector]
+    public State state = State.Idle;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        if (animator != null) animator.SetBool("isIdle", true);
-
-        healthBar = GetComponentInChildren<FloatingHealthBar>();
-
         agent = GetComponent<NavMeshAgent>();
+        healthBar = GetComponentInChildren<FloatingHealthBar>();
         currentPath = new List<Vector3>();
 
         currentWaypointIndex = 0;
@@ -53,13 +57,19 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void BeginTracking(Enemy me)
     {
-        //Need to find the closest path
+
+        //Assign Health
         maxHealth = me.health;
         health = maxHealth;
+        //Asssign Attack
         attackDmg = me.attackDmg;
+        attackRange = me.attackRadius;
+
         healthBar.UpdateHealthBar(health, maxHealth);
         state = State.Idle;
 
+        
+        //Need to find the closest path
         paths = GameManager.Instance.paths;
 
         FindAndAssignClosestPath();
@@ -74,11 +84,7 @@ public class EnemyBehaviour : MonoBehaviour
             // Fallback: if no valid path, move directly to the main tower so enemies don't stall
             agent.SetDestination(GameManager.Instance.mainTower.transform.position);
             state = State.Pathing;
-            if (animator != null)
-            {
-                animator.SetBool("isIdle", false);
-                animator.SetBool("isWalking", true);
-            }
+
         }
     }
 
@@ -116,7 +122,6 @@ public class EnemyBehaviour : MonoBehaviour
             RefreshOrAcquireTarget();
         }
 
-
         if (target != null)
         {
             float Dist = Vector3.Distance(transform.position, target.transform.position);
@@ -133,9 +138,6 @@ public class EnemyBehaviour : MonoBehaviour
                 //At TargetWalls
                 state= State.Attacking;
                 agent.isStopped = true; //Stop Agent Moving.
-                animator.SetBool("isAttacking", true);
-                animator.SetBool("isWalking", false);
-
                 Attack(target);
                 return;
             }
@@ -144,19 +146,17 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             state = State.Pathing;
-
             agent.isStopped = false;          
             agent.stoppingDistance = 0f;
-
-            animator.SetBool("isAttacking", false);
-            animator.SetBool("isWalking", true);
-            animator.SetBool("isIdle", false);;
         }
 
         //Pathing Logic
         if (currentPath != null && state == State.Pathing)
         {
             // If close enough to current waypoint, advance to the next
+            Debug.Log(currentWaypointIndex);
+            Debug.Log(currentPath.Count);
+
             float sqrDist = (new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(currentPath[currentWaypointIndex].x, 0, currentPath[currentWaypointIndex].z)).sqrMagnitude;
             float reach = Mathf.Max(waypointReachThreshold, agent.stoppingDistance + 0.1f);
 
@@ -175,14 +175,14 @@ public class EnemyBehaviour : MonoBehaviour
         {
             FindAndAssignClosestPath();
             MoveToCurrentWaypoint();
-            Debug.Log("repathing goblin");
+            Debug.Log("repathing enemy");
         }
 
 
 
     }
 
-    private void RefreshOrAcquireTarget()
+    public void RefreshOrAcquireTarget()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, scanRadius);
         float best = float.PositiveInfinity;
@@ -266,23 +266,75 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+
+    //METHODS FOR THE BABIES
+
+    
+    public void SlowEnemy(float slowSpeed, float slowDuration)
     {
-        if (!other.gameObject.CompareTag("Player")) return;
+        float temp = agent.speed;
+        agent.speed = slowSpeed;
 
-        int dmg = other.gameObject.GetComponent<Bullet>().attackDmg;
+        StartCoroutine(RemoveSlowAfter(slowDuration, temp));
+    }
 
-        // Apply damage
+    public void ContinousDmg(float dmgTaken, float dmgTick)
+    {
+        StartCoroutine(ContinousDamage(dmgTaken, dmgTick));
+    }
+
+
+    private IEnumerator RemoveSlowAfter(float delay, float ogSpeed)
+    {
+        yield return new WaitForSeconds(delay);
+
+        agent.speed = ogSpeed;
+    }
+
+    private IEnumerator ContinousDamage(float dmgTaken, float dmgTick)          //UNTIL DEATH
+    {
+        while (health >= 0)                                                    
+        {
+            yield return new WaitForSeconds(dmgTick);
+            TakeDamage(dmgTaken);
+        }
+    }
+
+
+    public void TakeDamage(float dmg)
+    {
         health -= dmg;
         healthBar.UpdateHealthBar(health, maxHealth);
-        Debug.Log($"Been shot at! Took {dmg} damage, health now {health}");
-        
 
-        if (health <= 0)
+        if(health <= 0)
         {
             Destroy(gameObject);
             Debug.Log("Goblin Died");
         }
     }
+
+
 }
 
+
+
+//OLD CODE
+
+//private void OnTriggerEnter(Collider other)
+//{
+//    if (!other.gameObject.CompareTag("Player")) return;
+
+//    int dmg = other.gameObject.GetComponent<Bullet>().attackDmg;
+
+//    // Apply damage
+//    health -= dmg;
+//    healthBar.UpdateHealthBar(health, maxHealth);
+//    Debug.Log($"Been shot at! Took {dmg} damage, health now {health}");
+
+
+//    if (health <= 0)
+//    {
+//        Destroy(gameObject);
+//        Debug.Log("Goblin Died");
+//    }
+//}

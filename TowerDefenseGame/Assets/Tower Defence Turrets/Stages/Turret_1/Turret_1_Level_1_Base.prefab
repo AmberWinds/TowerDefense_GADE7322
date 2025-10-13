@@ -332,6 +332,7 @@ MonoBehaviour:
   fireRate: 1.2
   dmg: 3
   showDetectionRadius: 1
+  type: 0
 --- !u!1001 &7059069066998254347
 PrefabInstance:
   m_ObjectHideFlags: 0
