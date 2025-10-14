@@ -276,7 +276,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
         float temp = agent.speed;
         agent.speed = slowSpeed;
 
-        Debug.Log("Enemy Slowed");
         StartCoroutine(RemoveSlowAfter(slowDuration, temp));
     }
 

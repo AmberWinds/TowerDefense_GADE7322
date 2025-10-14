@@ -53,10 +53,8 @@ public class GoblinBehaviour : EnemyBehaviour
         if (!other.gameObject.CompareTag("Player")) return;
 
         int effect = other.gameObject.GetComponent<Bullet>().effectType;
-        Debug.Log($"Effect Number is {effect}. 0 is basic, 1 is plant, 2 is dark");
         int dmg = other.gameObject.GetComponent<Bullet>().attackDmg;
 
-        Debug.Log($"Attack damage that may or may not be different per bullet {dmg}");
 
         switch (effect)
         {

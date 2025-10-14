@@ -3163,8 +3163,38 @@ MonoBehaviour:
     attackRadius: 3
     health: 50
     speed: 5
-  spawnDelay: 10
-  maxSpawn: 40
+  spawnDelay: 5
+  waveDelay: 15
+  baseEnemiesPerWave: 15
+  resourceBonus: 500
+  waveMixList:
+  - waveType: 0
+    percentageMix:
+    - 80
+    - 15
+    - 5
+  - waveType: 1
+    percentageMix:
+    - 60
+    - 25
+    - 15
+  - waveType: 2
+    percentageMix:
+    - 50
+    - 25
+    - 25
+  - waveType: 3
+    percentageMix:
+    - 100
+    - 0
+    - 0
+  - waveType: 0
+    percentageMix:
+    - 0
+    - 80
+    - 20
+  enemiesPerWaveIncrement: 3
+  wavesPerDifficulty: 2
 --- !u!114 &1875627874 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4612235047090103440, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}

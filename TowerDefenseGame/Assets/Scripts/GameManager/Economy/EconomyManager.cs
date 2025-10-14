@@ -132,6 +132,8 @@ public class EconomyManager : MonoBehaviour
         return false;
     }
 
+    
+
 
     private void UpdateUI() //Almost forgot about this.
     {
@@ -148,6 +150,11 @@ public class EconomyManager : MonoBehaviour
             ui.UpdateUIShop();
         }
 
+    }
+
+    public void EarnResorces(int income)
+    {
+        resources += income;
     }
 
 }

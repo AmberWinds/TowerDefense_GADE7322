@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GamePlayManager : MonoBehaviour
 {
     /*Manages Gameplay after The Map has Spawned
-     * Manages Economy
+     * Literally Just Handles UI now. Whoops
      */
 
     public static GamePlayManager Instance {  get; private set; }
