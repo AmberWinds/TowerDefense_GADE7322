@@ -32,11 +32,7 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     private void ClickedDefender()
     {
-        EconomyManager.Instance.BuyTower();
-        DefenderPlacement.Instance.SpawnInDefender(transform.position);
-        Destroy(gameObject);
-
-
+        DefenderShop.Instance.OpenDefenderShop(transform);
     }
 
 }

@@ -18,10 +18,15 @@ public class EnemyManager : MonoBehaviour
 
     private List<Vector3> enemySpawnPos;
     private int spawned;
-    
+
+    [Header("Enemy Spawn Info")]
     public Enemy[] Enemies;                     //Going to pick them randomly from this array
     public float spawnDelay = 1.5f;             //Time between each spawn
     public int maxSpawn = 60;                   //maximum number of enemies that will spawn.
+    public float waveDelay = 10f;               //Time between each Wave
+
+    private int difficultyLevel = 1;
+    private int waveCounter = 0;
 
     private Coroutine spawnRoutine;
 
@@ -35,6 +40,11 @@ public class EnemyManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void IncreaseDifficulty()
+    {
+        difficultyLevel += 1;
     }
 
 
@@ -69,6 +79,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         spawnRoutine = null;
+        waveCounter += 1;
     }
 
 }
@@ -86,12 +97,3 @@ public class Enemy
 }
 
 
-
-
-
-
-
-////BIG CHECK
-//if (go.GetComponent<GoblinBehaviour>() != null) go.GetComponent<GoblinBehaviour>().BeginTracking(enemy);
-//if (go.GetComponent<SkeletonBehaviour>() != null) go.GetComponent<SkeletonBehaviour>().BeginTracking(enemy);
-//if (go.GetComponent<TrollBehaviour>() != null) go.GetComponent<TrollBehaviour>().BeginTracking(enemy);

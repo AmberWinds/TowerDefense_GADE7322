@@ -200,8 +200,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
             if (d < best && NavMesh.CalculatePath(transform.position, c.transform.position, NavMesh.AllAreas, path)
                          && path.status == NavMeshPathStatus.PathComplete)
             {
-                Debug.Log($"The Value of d is {d} and the value of best is {best}");
-
                 best = d; 
                 bestGO = c.gameObject;
             }
@@ -214,10 +212,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
 
         target = bestGO; // null if none reachable
 
-        if(target != null)
-        {
-            Debug.Log("Target found in AquireTarget");
-        }
     }
 
     public void Attack(GameObject target)
@@ -282,6 +276,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
         float temp = agent.speed;
         agent.speed = slowSpeed;
 
+        Debug.Log("Enemy Slowed");
         StartCoroutine(RemoveSlowAfter(slowDuration, temp));
     }
 
@@ -304,6 +299,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
         {
             yield return new WaitForSeconds(dmgTick);
             TakeDamage(dmgTaken);
+            Debug.Log("Continous Damage Taken");
         }
     }
 

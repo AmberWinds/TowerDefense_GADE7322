@@ -13,7 +13,6 @@ public class EconomyManager : MonoBehaviour
     [Header("Resources")]
     public double resources;                 //Money Basically
     public TextMeshProUGUI totalResourcesText;
-    public double defenderPrice = 20;
 
     [Header("Infrastructure")]
     public List<InfrastructureData> dataLog;
@@ -121,7 +120,7 @@ public class EconomyManager : MonoBehaviour
             UpdateUI(); //At the Bottom
     }
 
-    public bool BuyTower()
+    public bool BuyTower(int defenderPrice)
     {
         if(resources >= defenderPrice)
         {

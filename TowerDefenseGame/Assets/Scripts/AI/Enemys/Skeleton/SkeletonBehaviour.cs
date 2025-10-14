@@ -50,6 +50,7 @@ public class SkeletonBehaviour : EnemyBehaviour
         if (!other.gameObject.CompareTag("Player")) return;
 
         int effect = other.gameObject.GetComponent<Bullet>().effectType;
+        Debug.Log($"Effect Number is {effect}. 0 is basic, 1 is plant, 2 is dark");
         int dmg = other.gameObject.GetComponent<Bullet>().attackDmg;
 
         switch (effect)
@@ -58,11 +59,11 @@ public class SkeletonBehaviour : EnemyBehaviour
                 TakeDamage(dmg);
                 break;
             case 1:
-                TakeDamage(dmg);
-                SlowEnemy(5f, 8f);
+                TakeDamage(dmg * 2);
+                SlowEnemy(2f, 8f);
                 break;
             case 2:
-                TakeDamage(dmg * 2);
+                TakeDamage(dmg);
                 ContinousDmg(5f, 2f);
                 break;
             default:

@@ -646,7 +646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f610e70d49cfd41bef21d9a68a7376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defender: {fileID: 7842888822707930003, guid: 14efdefcbe1ca4d439582277f5d1ea41, type: 3}
   tempDefender: {fileID: 3484804037060006919, guid: a55a0c9e057bc994ea182b2668dbdccb, type: 3}
   tempDefScale: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!1 &330585543
@@ -1025,7 +1024,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 423085278}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1294244978}
+        m_TargetAssemblyTypeName: DefenderShop, Assembly-CSharp
+        m_MethodName: BuyPlantTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &423085278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1207,6 +1218,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 262
       objectReference: {fileID: 0}
+    - target: {fileID: 2918253665734035837, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918253665734035837, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918253665734035837, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1294244978}
+    - target: {fileID: 2918253665734035837, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918253665734035837, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BuyBasicTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918253665734035837, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DefenderShop, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918253665734035837, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3559311105711791803, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: -1
@@ -1292,11 +1331,30 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2183456615807234787, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
       insertIndex: 6
       addedObject: {fileID: 643696171}
+    - targetCorrespondingSourceObject: {fileID: 2183456615807234787, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 969528595}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
 --- !u!224 &589284319 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2183456615807234787, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+  m_PrefabInstance: {fileID: 589284318}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &589284320 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1163167877978442573, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
+  m_PrefabInstance: {fileID: 589284318}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!223 &589284321 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3559311105711791803, guid: 881b8e40065b0374ca0e2fddb4880afa, type: 3}
   m_PrefabInstance: {fileID: 589284318}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &643696170
@@ -1381,7 +1439,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 643696173}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1294244978}
+        m_TargetAssemblyTypeName: DefenderShop, Assembly-CSharp
+        m_MethodName: BuyDarkTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &643696173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2317,6 +2387,138 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &969528594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 969528595}
+  - component: {fileID: 969528598}
+  - component: {fileID: 969528597}
+  - component: {fileID: 969528596}
+  m_Layer: 5
+  m_Name: CloseDefShop_btn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &969528595
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969528594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 589284319}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 606, y: -393}
+  m_SizeDelta: {x: 110.1473, y: 108.1171}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &969528596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969528594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 969528597}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1294244978}
+        m_TargetAssemblyTypeName: DefenderShop, Assembly-CSharp
+        m_MethodName: CloseDefenderShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &969528597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969528594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1691551243, guid: 05e0567213a58c840a3ea79a4409bdfd, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &969528598
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969528594}
+  m_CullTransparentMesh: 1
 --- !u!1 &1050736312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,6 +2839,13 @@ MonoBehaviour:
   basicDef: {fileID: 7842888822707930003, guid: 14efdefcbe1ca4d439582277f5d1ea41, type: 3}
   plantDef: {fileID: 3420274166927340714, guid: 0e01b6013644f5345853dfdbd9c2da4d, type: 3}
   darkDef: {fileID: 2087621527941656380, guid: c8f8e6fedf33ec8469bba2a025ec61b6, type: 3}
+  basicCost: 20
+  plantCost: 120
+  darkCost: 220
+  shopUI: {fileID: 589284321}
+  basicCost_txt: {fileID: 589284320}
+  plantCost_txt: {fileID: 65837888}
+  darkCost_txt: {fileID: 859123336}
 --- !u!1 &1334767233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,6 +3236,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ExitGame
       objectReference: {fileID: 0}
+    - target: {fileID: 1323572154553123253, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1273248914, guid: 05e0567213a58c840a3ea79a4409bdfd, type: 3}
     - target: {fileID: 1350843311299700588, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -3112,6 +3325,18 @@ PrefabInstance:
       value: OpenShop
       objectReference: {fileID: 0}
     - target: {fileID: 1529920010858931477, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529920010858931477, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529920010858931477, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1529920010858931477, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -3130,6 +3355,22 @@ PrefabInstance:
     - target: {fileID: 1529920010858931477, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: NormalSpeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697703398751414218, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -569082693, guid: 05e0567213a58c840a3ea79a4409bdfd, type: 3}
+    - target: {fileID: 1961677821065361715, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961677821065361715, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961677821065361715, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1961677821065361715, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.b
@@ -3304,6 +3545,18 @@ PrefabInstance:
       value: 390
       objectReference: {fileID: 0}
     - target: {fileID: 5528551394018608226, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528551394018608226, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528551394018608226, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528551394018608226, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -3407,6 +3660,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6189443595453030238, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -236887718, guid: 05e0567213a58c840a3ea79a4409bdfd, type: 3}
     - target: {fileID: 6363611194247313953, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_fontAsset
       value: 

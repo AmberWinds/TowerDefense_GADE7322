@@ -13,7 +13,6 @@ public class DefenderPlacement : MonoBehaviour
 
     public static DefenderPlacement Instance { get; private set; }
 
-    [SerializeField] GameObject defender;
     [SerializeField] GameObject tempDefender;
     public Vector3 tempDefScale = Vector3.one;
 
@@ -45,11 +44,15 @@ public class DefenderPlacement : MonoBehaviour
         }
     }
 
-    public void SpawnInDefender(Vector3 location)
+    //Spawns in the Towers
+    public void SpawnInDefender(Vector3 location, GameObject defenderToSpawn)
     {
-        Instantiate(defender, location, Quaternion.identity, transform);
+       var go =  Instantiate(defenderToSpawn, location, Quaternion.identity, transform);
+
     }
 
+
+    //This Spawns in the Pink Banners That Can be used to Spawn in the Towers
     public void SpawnSingleDefenderPlacement(Vector3 location)
     {
        GameObject obj = Instantiate(tempDefender, location, Quaternion.identity, transform);

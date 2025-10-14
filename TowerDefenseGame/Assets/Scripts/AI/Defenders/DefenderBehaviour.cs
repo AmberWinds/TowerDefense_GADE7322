@@ -47,6 +47,7 @@ public class DefenderBehaviour : MonoBehaviour
         currentHealth = maxHealth;
         healthBar = GetComponentInChildren<FloatingHealthBar>();
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        
     }
 
 
@@ -96,7 +97,6 @@ public class DefenderBehaviour : MonoBehaviour
                     projectile.GetComponent<Bullet>().SetType(Bullet.defenderType.basic);
                     break;
             }
-
 
             projectile.GetComponent<Bullet>().attackDmg = dmg;
 
@@ -159,16 +159,10 @@ public class DefenderBehaviour : MonoBehaviour
     public void BeAttacked(float damageTaken)
     {
         currentHealth -= damageTaken;
-        Debug.Log($"defender health is {currentHealth}");
 
         //Move this back into If statement when done testing
         TowerBehaviour towerBehaviour = null;
         towerBehaviour = gameObject.GetComponent<TowerBehaviour>();
-
-        if (towerBehaviour != null)
-        {
-            Debug.Log($"Tower Takes Damage= health is = {currentHealth}");
-        }
 
         if (currentHealth <= 0)
         {
@@ -184,7 +178,6 @@ public class DefenderBehaviour : MonoBehaviour
             }
 
         }
-
         
 
         healthBar.UpdateHealthBar(currentHealth, maxHealth);

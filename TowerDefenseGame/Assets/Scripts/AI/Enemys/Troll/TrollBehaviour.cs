@@ -46,7 +46,15 @@ public class TrollBehaviour : EnemyBehaviour
         if (!other.gameObject.CompareTag("Player")) return;
 
         int effect = other.gameObject.GetComponent<Bullet>().effectType;
+
+        //Debug.Log($"Effect Number is {effect}. 0 is basic, 1 is plant, 2 is dark");
+
         int dmg = other.gameObject.GetComponent<Bullet>().attackDmg;
+
+
+        //0 is Basic
+        //1 is Plant - Continous - Deal with Large troll health pool
+        //2 is Dark - Slow - Deal with dumb speedy skeleys
 
         switch (effect)
         {
@@ -54,12 +62,12 @@ public class TrollBehaviour : EnemyBehaviour
                 TakeDamage(dmg);
                 break;
             case 1:
-                TakeDamage(dmg * 2);
+                TakeDamage(dmg);
                 SlowEnemy(1f, 10f);
                 break;
             case 2:
-                TakeDamage(dmg);
-                ContinousDmg(3f, 3f);
+                TakeDamage(dmg * 2);
+                ContinousDmg(8f, 2f);
                 break;
             default:
                 TakeDamage(dmg);
