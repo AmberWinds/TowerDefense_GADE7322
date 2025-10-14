@@ -122,8 +122,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
         //Chasing
         if (target != null)     //There us a Target
         {
-            Debug.Log("HAS A TARGET");
-
             float Dist = Vector3.Distance(transform.position, target.transform.position);
             if (Dist > attackRange)     //Oustide attack range
             {
@@ -202,6 +200,8 @@ public abstract class EnemyBehaviour : MonoBehaviour
             if (d < best && NavMesh.CalculatePath(transform.position, c.transform.position, NavMesh.AllAreas, path)
                          && path.status == NavMeshPathStatus.PathComplete)
             {
+                Debug.Log($"The Value of d is {d} and the value of best is {best}");
+
                 best = d; 
                 bestGO = c.gameObject;
             }
@@ -223,9 +223,6 @@ public abstract class EnemyBehaviour : MonoBehaviour
     public void Attack(GameObject target)
     {
         state = State.Attacking;
-        Debug.Log("ATTACCKKKKK");
-
-
         //face the target
         Vector3 dir = (target.transform.position - transform.position);
         currentPath = null;

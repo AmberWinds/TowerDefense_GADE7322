@@ -9,16 +9,16 @@ public class SkeletonBehaviour : EnemyBehaviour
     */
 
 
-    private void Update()
+    protected override void OnTick()
     {
-        if(target != null)
+        if (target != null)
         {
-            if(target.gameObject.GetComponent<TowerBehaviour>() == null)
+            if (target.gameObject.GetComponent<TowerBehaviour>() == null)
             {
                 target = null;
                 currentWaypointIndex += 2;
             }
-            
+
         }
 
         switch (state)
@@ -41,6 +41,7 @@ public class SkeletonBehaviour : EnemyBehaviour
                 break;
         }
     }
+
 
 
     private void OnTriggerEnter(Collider other)

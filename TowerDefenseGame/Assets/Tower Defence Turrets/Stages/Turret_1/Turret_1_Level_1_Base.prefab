@@ -185,6 +185,8 @@ GameObject:
   - component: {fileID: 2971896731715013648}
   - component: {fileID: 6363085919001572198}
   - component: {fileID: 6890962156585173472}
+  - component: {fileID: 5126544146248564680}
+  - component: {fileID: -2461408251663614222}
   m_Layer: 0
   m_Name: Turret_1_Level_1_Base
   m_TagString: Untagged
@@ -288,6 +290,47 @@ MonoBehaviour:
   dmg: 3
   showDetectionRadius: 1
   type: 0
+--- !u!65 &5126544146248564680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842888822707930003}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.848309, y: 3.1864047, z: 3.8483086}
+  m_Center: {x: -0.089144945, y: 1.5932021, z: -0.00000059604645}
+--- !u!114 &-2461408251663614222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842888822707930003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &7059069066998254347
 PrefabInstance:
   m_ObjectHideFlags: 0

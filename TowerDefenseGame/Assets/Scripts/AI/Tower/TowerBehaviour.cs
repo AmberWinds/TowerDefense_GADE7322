@@ -10,19 +10,8 @@ public class TowerBehaviour : MonoBehaviour
      * 
      */
     [Header("Health")]
-    private float currentHealth;
     public float maxHealth;
     public int dmg = 50;
-    FloatingHealthBar healthBar;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        healthBar = GetComponentInChildren<FloatingHealthBar>();
-        currentHealth = maxHealth;
-        healthBar.UpdateHealthBar(currentHealth, maxHealth);
-    }
 
 
     public void EndGame()
@@ -31,16 +20,5 @@ public class TowerBehaviour : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)      //Only thing that changes currentHealth. No need to check it every frame
-    {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            healthBar.UpdateHealthBar(currentHealth, maxHealth);
-            if(currentHealth <= 0)
-            {
-                Debug.Log("Game Over");
-            }
 
-        }
-    }
 }
