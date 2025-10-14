@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
                 effectType = 1;
                 break;
             case defenderType.dark:
-                effectType |= 2;
+                effectType = 2;
                 break;
             default: break;
         }
