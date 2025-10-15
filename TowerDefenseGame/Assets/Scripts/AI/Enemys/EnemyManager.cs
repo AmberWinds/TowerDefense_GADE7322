@@ -41,6 +41,19 @@ public class EnemyManager : MonoBehaviour
     public int resourceBonus = 500;
     public List<WaveMix> waveMixList;
 
+    [Header("Adaptive Wave Sizing")]
+    [Tooltip("When Player has more than x amount of Structures Difficulty Increases")]
+    public int structureThreshold = 10;
+    [Tooltip("When Player has more than x amount of Resources Difficulty Increases")]
+    public int resourceMaxThreshold = 1200;
+    [Tooltip("When Player has less than x amount of Resources Difficulty Increases")]
+    public int resourceMinThreshold = 200;
+    public int enemiesToAdd = 15;
+    public int enemiesToReduce = 15;
+
+    [Tooltip("On Adjustment of Enemy Spawner, Will not go below this threshold.")]
+    public int minEnemiesToSpawn = 15;      //No MAX Enemies to Spawn. PERISH
+
     [Tooltip("Linear increment per wave (additive). Set to 0 if you prefer exponential growth.")]
     public int enemiesPerWaveIncrement = 5;
 
@@ -85,18 +98,48 @@ public class EnemyManager : MonoBehaviour
     {
         waveCounter++;       
 
-        if(difficultyLevel >= Enum.GetNames(typeof(WaveType)).Length)
+        if(difficultyLevel > Enum.GetNames(typeof(WaveType)).Length)
         {
             difficultyLevel = 0;
         }
 
-        if(waveCounter > 1 && waveCounter % wavesPerDifficulty == 0)
+        if(waveCounter > 1 && waveCounter % wavesPerDifficulty == 0)        //ensure it increases every n wave
         {
             difficultyLevel++;
         }
 
+        //SET THE AMOUNT OF ENEMIES TO SPAWN => IS FRESH
         currentWaveType = (WaveType)difficultyLevel;
         waveEnemyCount = baseEnemiesPerWave + (waveCounter * enemiesPerWaveIncrement);
+
+        //<<<<<<<<<< ADAPTIVE SPAWNING SECTION >>>>>>>>>>>>
+
+        if (EconomyManager.Instance.GetBusinessOwnedAmount() > structureThreshold || EconomyManager.Instance.GetTotalResources() > resourceMaxThreshold)
+        {
+            waveEnemyCount += enemiesToAdd;
+            EconomyManager.Instance.AdjustDefenderLifeThreshold(-5);
+        }
+
+        //Doing too well, Get the hardest wave.
+        //WIll Stack on top of previous If Statement
+        if(EconomyManager.Instance.GetBusinessOwnedAmount() > structureThreshold && EconomyManager.Instance.GetTotalResources() > resourceMaxThreshold)
+        {
+            currentWaveType = WaveType.Spike;
+        }
+
+        if(EconomyManager.Instance.GetTotalResources() < resourceMinThreshold)
+        {
+            waveEnemyCount -= enemiesToReduce;
+            EconomyManager.Instance.AdjustDefenderLifeThreshold(+5);
+
+            if (waveEnemyCount <= minEnemiesToSpawn)
+            {
+                waveEnemyCount = minEnemiesToSpawn;
+            }
+        }
+
+
+        
     }
 
 
@@ -131,61 +174,62 @@ public class EnemyManager : MonoBehaviour
         if (waveEnemyCount <= 0) yield break;
         spawned = 0;
 
-
-        if(currentWaveType == WaveType.Bonus)
+        ///IF A BONUS WAVE. SPECIAL INSTRUCTIONS ENSUE
+        if (currentWaveType == WaveType.Bonus)
         {
+            waveEnemyCount = waveEnemyCount / 2;
             int[] spawnAmount = GetNumberOfSpawnsPerType();
-            int i = 0;
+
+            Dictionary<Enemy, int> spawnDic = new Dictionary<Enemy, int>();
+            spawnDic = GetSpawnDictionary();
 
             while (spawned < spawnAmount.Sum())
             {
-                Enemy enemy = Enemies[i];
+                Enemy enemy = Enemies[UnityEngine.Random.Range(0, Enemies.Length)];
 
-                for (int j = 0; j < spawnAmount[i] - (spawnAmount[i] * 0.5); j++)
+                if (spawnDic[enemy] != 0)
                 {
                     foreach (var spawn in enemySpawnPos)
                     {
                         GameObject go = Instantiate(enemy.enemyPrefab, spawn, Quaternion.identity);
                         go.GetComponent<NavMeshAgent>().speed = enemy.speed;
                         go.GetComponent<EnemyBehaviour>().BeginTracking(enemy);
-
+                        spawnDic[enemy]--;
                     }
-                    spawned++;
-                    yield return new WaitForSeconds(spawnDelay);
                 }
 
-                i++;
-
+                spawned++;
+                yield return new WaitForSeconds(spawnDelay);
             }
         }
         else
         {
             int[] spawnAmount = GetNumberOfSpawnsPerType();
-            int i = 0;
-            //                                  7                                   6                                   1               //Numbers are here for me to think
-            //Debug.Log($"spawnAmount is {spawnAmount.Sum()} with goblin being {spawnAmount[0]} and Troll being {spawnAmount[1]}");   
 
-            //>>>>>>>>>>>>>>>>  DO NOT TOUCH LOOP     <<<<<<<<<<<<<<<<
+            Dictionary<Enemy, int> spawnDic = new Dictionary<Enemy, int>();
+            spawnDic = GetSpawnDictionary();
+
             while (spawned < spawnAmount.Sum())
             {
-                Enemy enemy = Enemies[i];
+                Enemy enemy = Enemies[UnityEngine.Random.Range(0, Enemies.Length)];
 
-                for (int j = 0; j < spawnAmount[i]; j++)
+                if (spawnDic[enemy] != 0)
                 {
                     foreach (var spawn in enemySpawnPos)
                     {
                         GameObject go = Instantiate(enemy.enemyPrefab, spawn, Quaternion.identity);
                         go.GetComponent<NavMeshAgent>().speed = enemy.speed;
-                        go.GetComponent<EnemyBehaviour>().BeginTracking(enemy);                                                
+                        go.GetComponent<EnemyBehaviour>().BeginTracking(enemy);
+                        spawnDic[enemy]--;
                     }
-
-                    spawned++;
-                    yield return new WaitForSeconds(spawnDelay);
                 }
 
-                Debug.Log($"Ola, Spawned is {spawned} and the Enemies index is currently {i}");
-                i++;
+                spawned++;
+                yield return new WaitForSeconds(spawnDelay);
+
             }
+
+
         }
 
         yield return new WaitForSeconds(waveDelay);
@@ -210,15 +254,32 @@ public class EnemyManager : MonoBehaviour
         return spawnNum;
     }
 
+    private Dictionary<Enemy, int> GetSpawnDictionary()
+    {
+        var waveMix = waveMixList[(int)currentWaveType];
+        Dictionary<Enemy, int> keyValuePairs = new Dictionary<Enemy, int>();
 
+        for(int i = 0;i < Enemies.Length; i++)
+        {
+            //Get the Number of Shits to Spawn
+            var p = waveEnemyCount * (waveMix.percentageMix[i] / 100);
 
+            keyValuePairs[Enemies[i]] = (int)p;
+        }
+
+        return keyValuePairs;
+
+    }
 }
+
+
 
 [System.Serializable]
 public class Enemy
 {
     public GameObject enemyPrefab;
     public string enemyTypeName;
+    public float attackRate;
     public float attackDmg;
     public float attackRadius;
     public float health;
@@ -235,6 +296,35 @@ public class WaveMix
 }
 
 
+//int i = 0;
+////                                  7                                   6                                   1               //Numbers are here for me to think
+////Debug.Log($"spawnAmount is {spawnAmount.Sum()} with goblin being {spawnAmount[0]} and Troll being {spawnAmount[1]}");   
+
+////>>>>>>>>>>>>>>>>  DO NOT TOUCH LOOP     <<<<<<<<<<<<<<<<
+//while (spawned < spawnAmount.Sum())
+//{
+//    Enemy enemy = Enemies[i];
+
+//    for (int j = 0; j < spawnAmount[i]; j++)
+//    {
+//        foreach (var spawn in enemySpawnPos)
+//        {
+//            GameObject go = Instantiate(enemy.enemyPrefab, spawn, Quaternion.identity);
+//            go.GetComponent<NavMeshAgent>().speed = enemy.speed;
+//            go.GetComponent<EnemyBehaviour>().BeginTracking(enemy);                                                
+//        }
+
+//        spawned++;
+//        yield return new WaitForSeconds(spawnDelay);
+//    }
+
+//    Debug.Log($"Ola, Spawned is {spawned} and the Enemies index is currently {i}");
+//    i++;
+//}
+
+
+
+//Sometimes I Grab things from here so it stays here.
 
 //OLD CODE
 

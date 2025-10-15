@@ -16,7 +16,7 @@ public class TowerBehaviour : MonoBehaviour
 
     public void EndGame()
     {
-        //GamePlayManager.Instance.GameOver(false);
+        GamePlayManager.Instance.GameOver(false);
     }
 
 

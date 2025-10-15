@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GamePlayManager : MonoBehaviour
@@ -62,8 +63,9 @@ public class GamePlayManager : MonoBehaviour
 
     public void ExitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene(0);
     }
+
 
     public void SpeedUp()
     {

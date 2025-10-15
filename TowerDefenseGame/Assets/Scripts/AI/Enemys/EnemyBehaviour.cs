@@ -30,6 +30,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
     private float scanRadius = 12f;
     private float attackRate = 5f;
     private float scanRate = 1f;
+    private string enemyType;
 
     [HideInInspector]
     public GameObject target;
@@ -40,7 +41,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
     private float nextAttackTime;
 
     [HideInInspector]
-    public enum State { Idle, Pathing, Chasing, Attacking }
+    public enum State {Idle, Pathing, Chasing, Attacking }
     [HideInInspector]
     public State state = State.Idle;
 
@@ -63,6 +64,8 @@ public abstract class EnemyBehaviour : MonoBehaviour
         //Asssign Attack
         attackDmg = me.attackDmg;
         attackRange = me.attackRadius;
+        attackRate = me.attackRate;
+        enemyType = me.enemyTypeName;
 
         healthBar.UpdateHealthBar(health, maxHealth);
         state = State.Idle;
@@ -175,7 +178,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
         {
             FindAndAssignClosestPath();
             MoveToCurrentWaypoint();
-            Debug.Log("repathing enemy");
+
         }
 
         OnTick();
@@ -231,7 +234,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
 
         nextAttackTime = Time.time + (1f / Mathf.Max(attackRate, 0.01f));
         targetDef = target.GetComponent<DefenderBehaviour>();
-        targetDef.BeAttacked(attackDmg);
+        targetDef.BeAttacked(attackDmg, enemyType);
 
     }
 

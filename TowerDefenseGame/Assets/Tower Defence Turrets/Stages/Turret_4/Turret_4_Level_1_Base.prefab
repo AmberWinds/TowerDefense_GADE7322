@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474340bac95444242b961940e2fde272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 300
   attackRadius: 18
   projectilePrefab: {fileID: 583060032645598553, guid: 3703085345010604a959f3e101e022f9, type: 3}
   muzzle: {fileID: 8468951033012208435}

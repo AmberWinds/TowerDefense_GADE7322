@@ -15,7 +15,6 @@ public class ClickableDefenders : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("World object clicked!");
         //RUN CODE HERE
         ClickedDefender();
     }

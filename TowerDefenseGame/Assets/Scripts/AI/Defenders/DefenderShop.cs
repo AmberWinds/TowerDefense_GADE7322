@@ -75,30 +75,43 @@ public class DefenderShop : MonoBehaviour
     {
         if( defenderPos == null ) return;           //Make Sure The Position has been assigned.
 
-        EconomyManager.Instance.BuyTower(basicCost);
-        DefenderPlacement.Instance.SpawnInDefender(defenderPos.position, basicDef);
-        Destroy(defenderPos.gameObject);        //Destroy the Tent GameObject 
-        CloseDefenderShop();
+        bool canBuy = EconomyManager.Instance.BuyTower(basicCost);
+        if( canBuy )
+        {
+            DefenderPlacement.Instance.SpawnInDefender(defenderPos.position, basicDef);
+            Destroy(defenderPos.gameObject);        //Destroy the Tent GameObject 
+            CloseDefenderShop();
+        }
+
     }
 
     public void BuyPlantTower()
     {
         if (defenderPos == null) return;                    //Make Sure The Position has been assigned.
 
-        EconomyManager.Instance.BuyTower(plantCost);
-        DefenderPlacement.Instance.SpawnInDefender(defenderPos.position, plantDef);
-        Destroy(defenderPos.gameObject);        //Destroy the Tent GameObject 
-        CloseDefenderShop();
+        bool canBuy = EconomyManager.Instance.BuyTower(plantCost);
+        if( canBuy)
+        {
+            DefenderPlacement.Instance.SpawnInDefender(defenderPos.position, plantDef);
+            Destroy(defenderPos.gameObject);        //Destroy the Tent GameObject 
+            CloseDefenderShop();
+        }
+
     }
 
     public void BuyDarkTower()
     {
         if (defenderPos == null) return;                    //Make Sure The Position has been assigned.
 
-        EconomyManager.Instance.BuyTower(darkCost);
-        DefenderPlacement.Instance.SpawnInDefender(defenderPos.position, darkDef);
-        Destroy(defenderPos.gameObject);        //Destroy the Tent GameObject 
-        CloseDefenderShop();
+        bool canBuy = EconomyManager.Instance.BuyTower(darkCost);
+
+        if(canBuy)
+        {
+            DefenderPlacement.Instance.SpawnInDefender(defenderPos.position, darkDef);
+            Destroy(defenderPos.gameObject);        //Destroy the Tent GameObject 
+            CloseDefenderShop();
+        }
+
     }
 }
 

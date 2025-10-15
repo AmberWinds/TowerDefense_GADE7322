@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
 {
+    /* Ok SO, Placed in Empty Game Object and Controls everything to do with Resources.
+     * Controls Buying of Towers.
+     * Controls Destruction/Implementation of Structures (Businesses)
+     */
+    
     public static EconomyManager Instance { get; private set; }
 
     public float tickInterval = 10;         //Interval of time betweeen income.
@@ -17,8 +22,10 @@ public class EconomyManager : MonoBehaviour
     [Header("Infrastructure")]
     public List<InfrastructureData> dataLog;
     public Dictionary<InfrastructureData, int> owned = new();                           //key is the Business and the value is the amount owned
-    public Dictionary<InfrastructureData, double> currentCosts = new();       //key is the Business and the value is the current cost of that business.
-
+    public Dictionary<InfrastructureData, double> currentCosts = new();                 //key is the Business and the value is the current cost of that business.
+    [Tooltip("Defenders that can be Destroyed before Infrastructure is reduced")]
+    public int defenderThreshold = 15;
+    private int currentDefenderDeathCount = 0;
     private Coroutine incomeRoutine;
 
     [SerializeField] InfrastructureUI ui;
@@ -33,6 +40,23 @@ public class EconomyManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public int GetBusinessOwnedAmount()
+    {
+        int amount = 0;
+
+        foreach(var business in owned)
+        {
+            amount += business.Value;
+        }
+
+        return amount;
+    }
+
+    public int GetTotalResources()
+    {
+        return (int)resources;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,6 +84,7 @@ public class EconomyManager : MonoBehaviour
         UpdateUI();
 
     }
+
 
     private IEnumerator IncomeLoop()
     {
@@ -132,7 +157,36 @@ public class EconomyManager : MonoBehaviour
         return false;
     }
 
-    
+    private void StructureDestroyed()
+    {
+        List<InfrastructureData> keys = new List<InfrastructureData>(owned.Keys);
+        InfrastructureData randomKey = keys[UnityEngine.Random.Range(0, keys.Count)];
+
+        if(randomKey != null)       //Null Check
+        {
+            owned[randomKey] = Mathf.Max(0, owned[randomKey] - 1);  //Reduce its value by 1 but doesn't go below 0
+            Debug.Log($"Reduced {randomKey} → new count: {owned[randomKey]}");
+        }
+    }
+
+    public void DefendersDestroyed()
+    {
+        currentDefenderDeathCount++;
+        Debug.Log($"current Defender Death count: {currentDefenderDeathCount}");
+
+        if(currentDefenderDeathCount >= defenderThreshold)
+        {
+            currentDefenderDeathCount = 0;
+            StructureDestroyed();
+            Debug.Log("Structrue Destroyed");
+        }
+    }
+
+    public void AdjustDefenderLifeThreshold(int reduction)
+    {
+        defenderThreshold += reduction;
+    }
+
 
 
     private void UpdateUI() //Almost forgot about this.

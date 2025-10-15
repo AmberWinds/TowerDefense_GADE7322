@@ -2222,7 +2222,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2574503819257009765, guid: 587f1943de6d36f4ba19b562c9648ad3, type: 3}
       propertyPath: resources
-      value: 800
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 2574503819257009765, guid: 587f1943de6d36f4ba19b562c9648ad3, type: 3}
+      propertyPath: defenderThreshold
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2574503819257009765, guid: 587f1943de6d36f4ba19b562c9648ad3, type: 3}
       propertyPath: totalResourcesText
@@ -2405,7 +2409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &969528595
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2839,9 +2843,9 @@ MonoBehaviour:
   basicDef: {fileID: 7842888822707930003, guid: 14efdefcbe1ca4d439582277f5d1ea41, type: 3}
   plantDef: {fileID: 3420274166927340714, guid: 0e01b6013644f5345853dfdbd9c2da4d, type: 3}
   darkDef: {fileID: 2087621527941656380, guid: c8f8e6fedf33ec8469bba2a025ec61b6, type: 3}
-  basicCost: 20
-  plantCost: 120
-  darkCost: 220
+  basicCost: 100
+  plantCost: 600
+  darkCost: 1250
   shopUI: {fileID: 589284321}
   basicCost_txt: {fileID: 589284320}
   plantCost_txt: {fileID: 65837888}
@@ -3147,25 +3151,28 @@ MonoBehaviour:
   Enemies:
   - enemyPrefab: {fileID: 5868329331705110207, guid: f1e6e536b9b15184a9ce178fb2227861, type: 3}
     enemyTypeName: Goblin
-    attackDmg: 10
+    attackRate: 2
+    attackDmg: 15
     attackRadius: 3
     health: 30
-    speed: 4
+    speed: 3.5
   - enemyPrefab: {fileID: 3340169974791533733, guid: 59cbc1f8ed409544c9f14ebd156966ce, type: 3}
     enemyTypeName: Troll
+    attackRate: 2
     attackDmg: 25
-    attackRadius: 3
+    attackRadius: 4
     health: 80
     speed: 2.3
   - enemyPrefab: {fileID: 5228952524268629353, guid: e719192ca93c60a46a880773d10d9e42, type: 3}
     enemyTypeName: Skelley
-    attackDmg: 20
-    attackRadius: 3
+    attackRate: 3
+    attackDmg: 25
+    attackRadius: 4
     health: 50
     speed: 5
   spawnDelay: 5
-  waveDelay: 15
-  baseEnemiesPerWave: 15
+  waveDelay: 30
+  baseEnemiesPerWave: 8
   resourceBonus: 500
   waveMixList:
   - waveType: 0
@@ -3175,14 +3182,14 @@ MonoBehaviour:
     - 5
   - waveType: 1
     percentageMix:
-    - 60
-    - 25
+    - 50
+    - 35
     - 15
   - waveType: 2
     percentageMix:
-    - 50
-    - 25
-    - 25
+    - 30
+    - 40
+    - 30
   - waveType: 3
     percentageMix:
     - 100
@@ -3193,7 +3200,13 @@ MonoBehaviour:
     - 0
     - 80
     - 20
-  enemiesPerWaveIncrement: 3
+  structureThreshold: 10
+  resourceMaxThreshold: 3000
+  resourceMinThreshold: 200
+  enemiesToAdd: 25
+  enemiesToReduce: 10
+  minEnemiesToSpawn: 15
+  enemiesPerWaveIncrement: 5
   wavesPerDifficulty: 2
 --- !u!114 &1875627874 stripped
 MonoBehaviour:
@@ -3234,6 +3247,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -196
       objectReference: {fileID: 0}
+    - target: {fileID: 173045433826495338, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 262.04095
+      objectReference: {fileID: 0}
     - target: {fileID: 198661038949407624, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
       value: 0
@@ -3265,6 +3282,10 @@ PrefabInstance:
     - target: {fileID: 198661038949407624, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ExitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1045356617418667174, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1323572154553123253, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Sprite
@@ -3352,7 +3373,7 @@ PrefabInstance:
       objectReference: {fileID: 1294244976}
     - target: {fileID: 1452930171949152564, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenShop
+      value: ToggleShop
       objectReference: {fileID: 0}
     - target: {fileID: 1529920010858931477, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
@@ -3425,6 +3446,14 @@ PrefabInstance:
     - target: {fileID: 2149250580240628475, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357289184223473219, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 689.7191
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357289184223473219, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 81.14044
       objectReference: {fileID: 0}
     - target: {fileID: 2706068850773292381, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Pivot.x
@@ -3514,6 +3543,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3668467046240795749, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 106
+      objectReference: {fileID: 0}
     - target: {fileID: 4595980280093668147, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -3569,6 +3602,10 @@ PrefabInstance:
     - target: {fileID: 4725781045171800517, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5011234181222425451, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -158
       objectReference: {fileID: 0}
     - target: {fileID: 5517982079324897105, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3710,6 +3747,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6369992355882115995, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 106
+      objectReference: {fileID: 0}
     - target: {fileID: 6829303220092530389, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_SizeDelta.x
       value: 82.9001
@@ -3794,6 +3835,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8713413446097059848, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
+      objectReference: {fileID: 0}
     - target: {fileID: 9171411671785313756, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.49999997
@@ -3863,7 +3908,8 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5978485372783381888, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5663325633393208506, guid: e2f066f3bb21d014c95c6a6d706321fd, type: 3}
       insertIndex: -1

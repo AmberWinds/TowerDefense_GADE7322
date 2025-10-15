@@ -51,15 +51,27 @@ public class InfrastructureUI : MonoBehaviour
         }
     }
 
-    public void OpenShop()
+    private void OpenShop()
     {
         Shop.SetActive(true);
         UpdateUIShop();
     }
 
-    public void CloseShop()
+    private void CloseShop()
     {
         Shop.SetActive(false);
+    }
+
+    public void ToggleShop()
+    {
+        if(Shop.gameObject.activeSelf == false)
+        {
+            OpenShop();
+        }
+        else
+        {
+            CloseShop();
+        }
     }
 
 

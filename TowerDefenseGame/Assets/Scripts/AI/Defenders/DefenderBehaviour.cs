@@ -156,24 +156,33 @@ public class DefenderBehaviour : MonoBehaviour
         }
     }
 
-    public void BeAttacked(float damageTaken)
+    public void BeAttacked(float damageTaken, string enemyType)
     {
-        currentHealth -= damageTaken;
+        //Take more Damage if going against Type Opposite.
+        if ((type == defenderType.plant && enemyType == "Skelley") || type == defenderType.dark && enemyType == "Troll")
+        {
+            currentHealth -= damageTaken * 1.5f;
+        }
+        else
+        {
+            currentHealth -= damageTaken;
+        }
 
-        //Move this back into If statement when done testing
-        TowerBehaviour towerBehaviour = null;
-        towerBehaviour = gameObject.GetComponent<TowerBehaviour>();
 
         if (currentHealth <= 0)
         {
+            //Check if the Defender is Attached to THE Tower.
+            TowerBehaviour towerBehaviour = null;
+            towerBehaviour = gameObject.GetComponent<TowerBehaviour>();
 
-            if(towerBehaviour != null)
+            if (towerBehaviour != null)
             {
                 towerBehaviour.EndGame();
             }
             else
             {
                 DefenderPlacement.Instance.SpawnSingleDefenderPlacement(transform.position);
+                EconomyManager.Instance.DefendersDestroyed();
                 Destroy(gameObject);
             }
 

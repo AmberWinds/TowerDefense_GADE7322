@@ -11,15 +11,16 @@ public class SkeletonBehaviour : EnemyBehaviour
 
     protected override void OnTick()
     {
-        if (target != null)
-        {
-            if (target.gameObject.GetComponent<TowerBehaviour>() == null)
-            {
-                target = null;
-                currentWaypointIndex += 2;
-            }
 
-        }
+        //REMEMBER TO UNCOMMENT FOR PART THREE
+        //if (target != null)
+        //{
+        //    if (target.gameObject.GetComponent<TowerBehaviour>() == null)
+        //    {
+        //        target = null;
+        //        currentWaypointIndex += 2;
+        //    }
+        //}
 
         switch (state)
         {
