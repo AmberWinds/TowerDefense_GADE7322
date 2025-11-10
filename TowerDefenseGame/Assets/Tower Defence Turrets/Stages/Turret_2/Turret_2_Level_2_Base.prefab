@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 647742838198178405}
   - component: {fileID: 7599893484926435760}
   - component: {fileID: 3076457932122087737}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 3018486326045689400}
   - component: {fileID: 7035856310302675211}
   - component: {fileID: 6131146568693013453}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: notifier_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 4045595625775356376}
   - component: {fileID: 2138900211662641681}
   - component: {fileID: 8655072535078132800}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret_2_Level_2_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,6 +312,7 @@ MeshRenderer:
   - {fileID: -382652638819485698, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: -1023629945174811204, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: -8848810374240701247, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
+  - {fileID: 2100000, guid: 64e65835451cd7946abd0e1148a0b097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -348,7 +349,7 @@ GameObject:
   - component: {fileID: 6850728345477300841}
   - component: {fileID: 2953894381232157820}
   - component: {fileID: 6623863525162020182}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret_2_Level_2_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,6 +412,7 @@ MeshRenderer:
   - {fileID: -6947738207000270673, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: -328365705524343399, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: 9036992374869631830, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
+  - {fileID: 2100000, guid: 64e65835451cd7946abd0e1148a0b097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -447,8 +449,8 @@ MonoBehaviour:
   maxHealth: 250
   attackRadius: 12
   projectilePrefab: {fileID: 8786838236565721710, guid: c52c964e310a7fb4089eb7b475375303, type: 3}
-  muzzle: {fileID: 0}
-  head: {fileID: 0}
+  muzzle: {fileID: 6267287081572171876}
+  head: {fileID: 4045595625775356376}
   projectileSpeed: 50
   fireRate: 2
   dmg: 17
@@ -523,7 +525,7 @@ GameObject:
   - component: {fileID: 7494364186983819643}
   - component: {fileID: 2169746277450175963}
   - component: {fileID: 4207214338688253600}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: backgroud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +601,7 @@ GameObject:
   - component: {fileID: 4546670645251103040}
   - component: {fileID: 2679380100842182962}
   - component: {fileID: 1133232639098584314}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: UpgradeNotifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,6 +704,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2699099183790493973, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2814715896009405301, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -713,6 +719,10 @@ PrefabInstance:
     - target: {fileID: 4889777155824064324, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467822684487037043, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_Pivot.x
@@ -793,6 +803,18 @@ PrefabInstance:
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363985887231949206, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518458986220742519, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986440662911812473, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -2870,8 +2870,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b8083e8757c04748abecfffde3aa02e, type: 2}
   - {fileID: 11400000, guid: 74f2104aeca2d1e47ac59f7782f6fa33, type: 2}
   tower: {fileID: 0}
-  minTime: 40
-  maxTime: 60
+  minTime: 60
+  maxTime: 100
 --- !u!1 &1334767233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,14 +3403,14 @@ MonoBehaviour:
     health: 50
     speed: 5
   spawnDelay: 5
-  waveDelay: 17
+  waveDelay: 15
   baseEnemiesPerWave: 8
   resourceBonus: 500
   waveMixList:
   - waveType: 0
     percentageMix:
-    - 80
-    - 15
+    - 90
+    - 5
     - 5
   - waveType: 1
     percentageMix:

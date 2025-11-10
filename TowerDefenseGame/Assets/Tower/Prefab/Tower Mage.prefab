@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 491468}
   - component: {fileID: 3338162}
   - component: {fileID: 2319096}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 450010}
   - component: {fileID: 3327652}
   - component: {fileID: 2345950}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Woods
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 409546}
   - component: {fileID: 3386264}
   - component: {fileID: 2373996}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Banners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 458352}
   - component: {fileID: 3328912}
   - component: {fileID: 2327856}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 472130}
   - component: {fileID: 3303460}
   - component: {fileID: 2319822}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enterance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 440698}
   - component: {fileID: 3380440}
   - component: {fileID: 2396884}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: -2321637583199503665}
   - component: {fileID: 6085970814237182039}
   - component: {fileID: 4957090592426572650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tower Mage
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474340bac95444242b961940e2fde272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 800
+  maxHealth: 1500
   attackRadius: 50
   projectilePrefab: {fileID: 4959194679655373640, guid: 30f86879f9fcd7340860f76e4b734c26, type: 3}
   muzzle: {fileID: 9036400342960706109}
@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 9036400342960706109}
   - component: {fileID: 4402780940373411090}
   - component: {fileID: 8504919985669835437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,6 +739,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 2699099183790493973, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2814715896009405301, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -766,6 +770,10 @@ PrefabInstance:
     - target: {fileID: 4889777155824064324, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467822684487037043, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_Pivot.x
@@ -846,6 +854,18 @@ PrefabInstance:
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363985887231949206, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518458986220742519, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986440662911812473, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

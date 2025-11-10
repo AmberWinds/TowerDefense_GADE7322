@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6607927716959730604}
   - component: {fileID: 8523911936445688161}
   - component: {fileID: 7446838479333466552}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 3870899977348148826}
   - component: {fileID: 7516654219283016235}
   - component: {fileID: 799968153391735883}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret_2_Level_4_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,7 @@ MeshRenderer:
   - {fileID: -6947738207000270673, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: -328365705524343399, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: 4253588671899480465, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
+  - {fileID: 2100000, guid: 64e65835451cd7946abd0e1148a0b097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,7 +283,7 @@ GameObject:
   - component: {fileID: 5657553759402106651}
   - component: {fileID: 6073841669772554511}
   - component: {fileID: 4601377084141265274}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret_2_Level_4_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,6 +373,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2699099183790493973, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2814715896009405301, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -383,6 +388,10 @@ PrefabInstance:
     - target: {fileID: 4889777155824064324, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467822684487037043, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_Pivot.x
@@ -463,6 +472,18 @@ PrefabInstance:
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363985887231949206, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518458986220742519, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986440662911812473, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

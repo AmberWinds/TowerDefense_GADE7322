@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.7581024
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -62.014202
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -49,12 +49,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 58d53420af384224ea4cfee8973d18cb, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 64e65835451cd7946abd0e1148a0b097, type: 2}
     - target: {fileID: 919132149155446097, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
       propertyPath: m_Name
       value: rpgpp_lt_awning_standing_01b
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 903efcc7e62721c46ae1abc12e5f159b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7453485624032386442}
   - component: {fileID: 3064392731242356970}
   - component: {fileID: 7108857914468183880}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: backgroud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4243904031003176368}
   - component: {fileID: 9112001947445485406}
   - component: {fileID: 8634120773227137854}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: UpgradeNotifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 7190319349987593638}
   - component: {fileID: 2656930739120602265}
   - component: {fileID: 635128997781331764}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: notifier_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 5144244304395252662}
   - component: {fileID: 3530900934995296985}
   - component: {fileID: 5739604283637663927}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret_4_Level_3_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,6 +390,7 @@ MeshRenderer:
   - {fileID: 5320507565814304501, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: 9036992374869631830, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: -328365705524343399, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
+  - {fileID: 2100000, guid: 64e65835451cd7946abd0e1148a0b097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -529,7 +530,7 @@ GameObject:
   - component: {fileID: 6129488165971332460}
   - component: {fileID: 4235636791489781887}
   - component: {fileID: 9148455919262277328}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turret_4_Level_3_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,6 +587,7 @@ MeshRenderer:
   - {fileID: 2926557707537190794, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: -6947738207000270673, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
   - {fileID: 9036992374869631830, guid: 6a2804b640b654648b47afca42dc2866, type: 3}
+  - {fileID: 2100000, guid: 64e65835451cd7946abd0e1148a0b097, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -619,7 +621,7 @@ GameObject:
   - component: {fileID: 3876326823063230237}
   - component: {fileID: 7708483422633319484}
   - component: {fileID: 971383590895868663}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,6 +729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 2699099183790493973, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2814715896009405301, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -738,6 +744,10 @@ PrefabInstance:
     - target: {fileID: 4889777155824064324, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467822684487037043, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_Pivot.x
@@ -818,6 +828,18 @@ PrefabInstance:
     - target: {fileID: 6013269515817114183, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6363985887231949206, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518458986220742519, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986440662911812473, guid: 31983a6f51882af46bf49fe979994f11, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
