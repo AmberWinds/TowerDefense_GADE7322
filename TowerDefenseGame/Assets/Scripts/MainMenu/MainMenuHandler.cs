@@ -8,6 +8,11 @@ public class MainMenuHandler : MonoBehaviour
      * Build ASync LoadScreen
      */
 
+    private void Start()
+    {
+        MusicManager.Instance.PlayMusic("Menu", true);
+    }
+
 
     public void PlayGame()
     {

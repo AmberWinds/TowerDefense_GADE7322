@@ -28,8 +28,6 @@ public class DefenderBehaviour : MonoBehaviour
     private Vector3 scale = new Vector3((float)0.2, (float)0.2, (float)0.2);
     public int dmg = 20;
 
-
-
     [Header("Visual")]
     public bool showDetectionRadius = true;     //Gonna have to see the radius
 
@@ -37,6 +35,7 @@ public class DefenderBehaviour : MonoBehaviour
     private float nextFireTime = 0;
 
     private enum defenderType { basic, plant, dark }
+    private int cost = 0;
 
     [Header("Type")]
     [SerializeField] defenderType type;
@@ -47,7 +46,36 @@ public class DefenderBehaviour : MonoBehaviour
         currentHealth = maxHealth;
         healthBar = GetComponentInChildren<FloatingHealthBar>();
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        
+        GetDefenderCost();        
+    }
+
+    public int GetDefenderCost()
+    {
+        switch(type)
+        {
+            case defenderType.basic: cost = DefenderShop.Instance.basicCost;
+                return cost;   
+            case defenderType.plant: cost = DefenderShop.Instance.plantCost;
+                return cost;
+            case defenderType.dark: cost = DefenderShop.Instance.darkCost;
+                return cost;
+        }
+
+        return cost;
+    }
+
+    public void AddHealth(float health)
+    {
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += health;
+            Debug.Log("Added Tower Health");
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+        }
     }
 
 

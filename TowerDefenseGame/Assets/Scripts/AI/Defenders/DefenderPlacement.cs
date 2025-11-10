@@ -48,7 +48,6 @@ public class DefenderPlacement : MonoBehaviour
     public void SpawnInDefender(Vector3 location, GameObject defenderToSpawn)
     {
        var go =  Instantiate(defenderToSpawn, location, Quaternion.identity, transform);
-
     }
 
 

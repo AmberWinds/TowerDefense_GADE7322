@@ -19,6 +19,9 @@ public class GamePlayManager : MonoBehaviour
 
     public Button pauseBtn;
 
+    public Button exitNarrativeBtn;
+    public GameObject narrativeCanvas;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,6 +32,12 @@ public class GamePlayManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void CloseNarr()
+    {
+        Time.timeScale = 1f;
+        narrativeCanvas.SetActive(false);
     }
 
     public void GameOver(bool win)
@@ -45,6 +54,9 @@ public class GamePlayManager : MonoBehaviour
             gameOverText.text = "You Lose";
             Time.timeScale = 0f;
         }
+
+        MusicManager.Instance.StopMusic(false);
+        MusicManager.Instance.PlayMusic("EndGame", false);
     }
 
     public void TogglePause()

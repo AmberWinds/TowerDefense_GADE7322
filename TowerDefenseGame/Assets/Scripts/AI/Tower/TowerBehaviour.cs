@@ -7,8 +7,8 @@ public class TowerBehaviour : MonoBehaviour
      * In Charge of:
      *  - Managing Health.
      *  - Death (like Tower Dies and Calls Death) :)
-     * 
      */
+
     [Header("Health")]
     public float maxHealth;
     public int dmg = 50;
@@ -18,6 +18,7 @@ public class TowerBehaviour : MonoBehaviour
     {
         GamePlayManager.Instance.GameOver(false);
     }
+
 
 
 

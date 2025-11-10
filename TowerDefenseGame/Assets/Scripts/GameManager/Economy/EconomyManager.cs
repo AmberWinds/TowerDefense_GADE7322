@@ -18,6 +18,7 @@ public class EconomyManager : MonoBehaviour
     [Header("Resources")]
     public double resources;                 //Money Basically
     public TextMeshProUGUI totalResourcesText;
+    public int upgradeCostAddon = 100;
 
     [Header("Infrastructure")]
     public List<InfrastructureData> dataLog;
@@ -27,6 +28,8 @@ public class EconomyManager : MonoBehaviour
     public int defenderThreshold = 15;
     private int currentDefenderDeathCount = 0;
     private Coroutine incomeRoutine;
+
+
 
     [SerializeField] InfrastructureUI ui;
 
@@ -157,6 +160,19 @@ public class EconomyManager : MonoBehaviour
         return false;
     }
 
+    public bool UpgradeTower(int defenderPrice)
+    {
+        var newcost = defenderPrice + upgradeCostAddon;
+        
+        if(resources>= newcost)
+        {
+            resources -= newcost;
+            UpdateUI();
+            return true;
+        }
+        return false;
+    }
+
     private void StructureDestroyed()
     {
         List<InfrastructureData> keys = new List<InfrastructureData>(owned.Keys);
@@ -172,7 +188,7 @@ public class EconomyManager : MonoBehaviour
     public void DefendersDestroyed()
     {
         currentDefenderDeathCount++;
-        Debug.Log($"current Defender Death count: {currentDefenderDeathCount}");
+        //Debug.Log($"current Defender Death count: {currentDefenderDeathCount}");
 
         if(currentDefenderDeathCount >= defenderThreshold)
         {
@@ -209,6 +225,26 @@ public class EconomyManager : MonoBehaviour
     public void EarnResorces(int income)
     {
         resources += income;
+    }
+
+    //Narrative Sets
+
+    public void AddEventIncome(int money)
+    {
+        resources += money;
+
+        if(resources < 0)
+        {
+            resources = 0;
+        }
+
+        UpdateUI();
+    }
+
+    public void AddEventInfrastructure(InfrastructureData data)
+    {
+        owned[data] = owned[data] + 1;  //Success Own Building && Will Not Get More Expensive
+        UpdateUI(); //At the Bottom
     }
 
 }

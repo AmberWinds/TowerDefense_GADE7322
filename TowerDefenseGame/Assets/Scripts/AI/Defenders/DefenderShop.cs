@@ -31,7 +31,7 @@ public class DefenderShop : MonoBehaviour
     [Header("Defender Types")]
     [SerializeField] GameObject basicDef, plantDef, darkDef;
     [Header("Cost")]
-    [SerializeField] int basicCost, plantCost, darkCost;
+    public int basicCost, plantCost, darkCost;
     Transform defenderPos;
 
     [Header("UI")]
@@ -49,6 +49,7 @@ public class DefenderShop : MonoBehaviour
         shopUI.gameObject.SetActive(false);
         defenderPos = null; 
     }
+
 
     public void OpenDefenderShop(Transform defPos)
     {

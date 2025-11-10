@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ff5e751dcfd764781b6d35bf16d1e0, type: 3}
+  m_Name: Set_3
+  m_EditorClassIdentifier: 
+  setName: The Two Thrones
+  narrativeSet:
+  - paragraph: The king stands tall in the council hall. Envoys from the east speak
+      in riddles, their smiles sharper than swords. Their time, shorter than they
+      know.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "A sealed letter arrives at dawn \u2014 a treaty offer, or perhaps
+      a trap. The wax bears a rival crest. The timing of which, could not be worse"
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "Border fires burn through the night. Farmers flee, and the king\u2019s
+      patience thins with every spark. The enemy appears to cave in from all sides.
+      It's not just the monsters one must fear"
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: -300
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "In the great hall, the king\u2019s advisor whispers of spies within
+      the court. Trust grows scarce as winter."
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: -300
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: Gold flows from the treasury to bribe peace, yet greed knows no end.
+      The neighboring duke demands more.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: -200
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: A banquet is held in fragile truce. Beneath silken words, daggers
+      wait for their moment. But their are greater enemies on the border, monsters
+      that do not sleep. Grin and bear.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: -50
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "The rival kingdom marches soldiers along the border \u201Cfor training.\u201D
+      The king knows better than to believe such lies."
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: An emissary brings gifts of silver and venom. The king accepts both
+      with the same steady hand.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 200
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: The King bides his time and sends scouts to attack a camp at night.
+      Hiding under the guise of rogue theives, they bring back an abundance of gold.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 400
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: Rumors spread that the rival queen has fallen ill. The king wonders
+      if fate or poison struck first.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: The royal banners, tattered but unfallen, flutter proudly in the smoke.
+      The kingdom still breathes.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: Skeleton archers take position among the ruins. Their arrows sing
+      the songs of death, but the living will answer.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: -100
+  - paragraph: The mines strike rich and gold floods the kingdom. Repairs take place.
+      Monsters and Rivals stir
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: 200
+    infrastructure: {fileID: 0}
+    towerHealth: 150

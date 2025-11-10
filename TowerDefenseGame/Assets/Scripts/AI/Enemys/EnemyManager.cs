@@ -65,6 +65,7 @@ public class EnemyManager : MonoBehaviour
 
     public enum WaveType { Easy, Test, Spike, Relax, Bonus }
     private WaveType currentWaveType = WaveType.Easy;
+    private int[] spawnNum;
 
 
     //RunTime STUFF
@@ -84,6 +85,7 @@ public class EnemyManager : MonoBehaviour
             Instance = this;
         }
     }
+
 
 
     public void BeginSpawningEnemies()
@@ -149,12 +151,30 @@ public class EnemyManager : MonoBehaviour
 
         SpawningRoutine = StartCoroutine(SpawnLoop());      //Spawning Enemies Takes Place Here <<<<<<<<<<<
 
+        //MusicManager.Instance.StopMusic(true);
+
+        //PLAY MUSIC BASED ON WAVE TYPE
+        switch (currentWaveType)
+        {
+            case WaveType.Easy: MusicManager.Instance.PlayMusic("Easy", true); 
+                break;
+            case WaveType.Spike: MusicManager.Instance.PlayMusic("Spike", true); 
+                break;
+            case WaveType.Test: MusicManager.Instance.PlayMusic("Test", true); 
+                break;
+            case WaveType.Relax: MusicManager.Instance.PlayMusic("Relax", true); 
+                break;
+            case WaveType.Bonus: MusicManager.Instance.PlayMusic("Bonus", true);    
+                break;
+        }
+
         yield return new WaitForSeconds(waveDelay);
 
     }
 
     private void EndOfWave()
     {
+        StartCoroutine(BeginRestPeriod());
 
         var waveIncome = resourceBonus;
         switch (currentWaveType)
@@ -165,7 +185,21 @@ public class EnemyManager : MonoBehaviour
         }
 
         EconomyManager.Instance.EarnResorces(waveIncome);
-        BeginSpawningEnemies();
+
+    }
+
+
+    private IEnumerator BeginRestPeriod()
+    {
+        Debug.Log("Begin rest period");
+
+        MusicManager.Instance.StopMusic(true);   
+        MusicManager.Instance.PlayMusic("Waiting", true);
+        yield return new WaitForSeconds(waveDelay);
+
+        Debug.Log("End of Rest");
+
+        StartCoroutine(WaveLoop());
     }
 
 
@@ -213,19 +247,23 @@ public class EnemyManager : MonoBehaviour
             {
                 Enemy enemy = Enemies[UnityEngine.Random.Range(0, Enemies.Length)];
 
-                if (spawnDic[enemy] != 0)
+                if (spawnDic[enemy] > 0)
                 {
                     foreach (var spawn in enemySpawnPos)
                     {
                         GameObject go = Instantiate(enemy.enemyPrefab, spawn, Quaternion.identity);
                         go.GetComponent<NavMeshAgent>().speed = enemy.speed;
                         go.GetComponent<EnemyBehaviour>().BeginTracking(enemy);
-                        spawnDic[enemy]--;
                     }
+                    
+                    spawnDic[enemy]--;
+                    spawned++;
+                    //Debug.Log("SpawnDictionary enemy is " + enemy.enemyTypeName + " Amount: " + spawnDic[enemy].ToString());
+                    //Debug.Log($"Enemies spawned = {spawned}");
+                    
+                    yield return new WaitForSeconds(spawnDelay);
                 }
 
-                spawned++;
-                yield return new WaitForSeconds(spawnDelay);
 
             }
 
@@ -241,8 +279,8 @@ public class EnemyManager : MonoBehaviour
 
     private int[] GetNumberOfSpawnsPerType()
     {
-        var waveMix = waveMixList[(int)currentWaveType];
-        int[] spawnNum = new int[waveMix.percentageMix.Count];
+        WaveMix waveMix = waveMixList[(int)currentWaveType];
+        spawnNum = new int[waveMix.percentageMix.Count];
 
         for(int i = 0; i < waveMix.percentageMix.Count; i++)
         {
@@ -259,19 +297,17 @@ public class EnemyManager : MonoBehaviour
         var waveMix = waveMixList[(int)currentWaveType];
         Dictionary<Enemy, int> keyValuePairs = new Dictionary<Enemy, int>();
 
-        for(int i = 0;i < Enemies.Length; i++)
+        for(int i = 0; i < Enemies.Length; i++)
         {
             //Get the Number of Shits to Spawn
-            var p = waveEnemyCount * (waveMix.percentageMix[i] / 100);
-
-            keyValuePairs[Enemies[i]] = (int)p;
+            var p = spawnNum[i];
+            keyValuePairs[Enemies[i]] = p;
         }
 
         return keyValuePairs;
 
     }
 }
-
 
 
 [System.Serializable]

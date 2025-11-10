@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ff5e751dcfd764781b6d35bf16d1e0, type: 3}
+  m_Name: Set_1
+  m_EditorClassIdentifier: 
+  setName: The King Falls Ill
+  narrativeSet:
+  - paragraph: The ruler awakens weak but determined. Goblins raid the outskirts,
+      their torches lighting the night. Soldiers rally to defend what remains of
+      the crumbling kingdom.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "A hidden cave reveals an abandoned gold mine. The ruler\u2019s advisors
+      rejoice \u2014 at last, the treasury may refill. But the echoes of mining stir
+      something deep below."
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 500
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: Skeletons march through the fog, their eyes glowing with cursed fire.
+      The ruler grips their sword, fevered yet unbroken, ready to reclaim the fallen
+      gate.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 150
+  - paragraph: The castle walls shudder under troll fists. Stones crack, banners
+      fall, but the defenders hold fast. If the masons survive, they might rebuild
+      before dawn.
+    addEcon: 0
+    addInfrastructure: 1
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 11400000, guid: f1cc8a616fa2bfb408428e59980c6b38, type: 2}
+    towerHealth: 0
+  - paragraph: "A caravan arrives bearing medicine and armor. The ruler coughs, smiles
+      faintly, and orders the guards to escort them safely \u2014 before the trolls
+      scent blood again."
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: -200
+    infrastructure: {fileID: 0}
+    towerHealth: -50
+  - paragraph: The royal blacksmith reforges shattered weapons from fallen foes.
+      Each strike echoes through the castle, a promise that not all is lost.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 200
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "Deep in the catacombs, skeletons collapse as a holy relic is uncovered.
+      The ruler\u2019s fever eases, if only for a night."
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "A lone messenger returns with news of victory \u2014 the mines have
+      been cleared. Gold will flow once more, if the ruler lives to see it"
+    addEcon: 1
+    addInfrastructure: 1
+    addTowerHealth: 0
+    econ: 400
+    infrastructure: {fileID: 11400000, guid: f1cc8a616fa2bfb408428e59980c6b38, type: 2}
+    towerHealth: 0
+  - paragraph: The Kings breaths grow ragged with each passing day but still, he
+      valently sends his soldiers to fight the incoming threat. With each monster
+      taken down, the kingdom grows more and more confident.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 400
+    infrastructure: {fileID: 11400000, guid: f1cc8a616fa2bfb408428e59980c6b38, type: 2}
+    towerHealth: 0
+  - paragraph: A healer arrives from distant lands, bearing rare herbs said to cure
+      even kings. The guards pray her hands are steady.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 400
+    infrastructure: {fileID: 11400000, guid: f1cc8a616fa2bfb408428e59980c6b38, type: 2}
+    towerHealth: 0
+  - paragraph: A caravan crests the hill, loaded with coin and courage. Aid has come,
+      if only for a time.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: 50
+    infrastructure: {fileID: 11400000, guid: f1cc8a616fa2bfb408428e59980c6b38, type: 2}
+    towerHealth: 0
+  - paragraph: Gold awashes the treasurey once more. "Food!" the prince orders, "while
+      my father is sick, we must focus our efforts on feeding the people."
+    addEcon: 0
+    addInfrastructure: 1
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 11400000, guid: 9ab883eb9ce71c843ba63c82619b7649, type: 2}
+    towerHealth: 0
+  - paragraph: A neighbouring King hears about the horrors of your war and the tragedy
+      of your King. He offers his Aid.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 200
+    infrastructure: {fileID: 11400000, guid: 9ab883eb9ce71c843ba63c82619b7649, type: 2}
+    towerHealth: 0
