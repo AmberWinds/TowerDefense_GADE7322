@@ -2869,6 +2869,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9382f16ac0186a4e85adf7bbf5621e1, type: 2}
   - {fileID: 11400000, guid: 3b8083e8757c04748abecfffde3aa02e, type: 2}
   - {fileID: 11400000, guid: 74f2104aeca2d1e47ac59f7782f6fa33, type: 2}
+  - {fileID: 11400000, guid: bd5945f2ee6450842996d654c5dd53db, type: 2}
   tower: {fileID: 0}
   minTime: 60
   maxTime: 100

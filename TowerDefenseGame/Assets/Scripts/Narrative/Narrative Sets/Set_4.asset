@@ -12,5 +12,134 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ff5e751dcfd764781b6d35bf16d1e0, type: 3}
   m_Name: Set_4
   m_EditorClassIdentifier: 
-  setName: 
-  narrativeSet: []
+  setName: The Wizard King
+  narrativeSet:
+  - paragraph: The King has fled from the land, fearing for his life and being too
+      cowardly to take up the mantle and fight the demons. But who better to lead,
+      than the man made of magic.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 11400000, guid: 6ec8093a56019304db6ff3c5f4aa5a45, type: 2}
+    towerHealth: 0
+  - paragraph: The Wizard pours through tomes and tomes of magic and mystery. The
+      people will need to learn to survive.
+    addEcon: 0
+    addInfrastructure: 1
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 11400000, guid: 6ec8093a56019304db6ff3c5f4aa5a45, type: 2}
+    towerHealth: 0
+  - paragraph: The Wizard casts a spell upon the towers. May they stand tall and
+      strong. They must repel the great evil.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: Soldiers gather in court and bow down to the Wizard king for his wisdom
+      knows no bounds. They will follow him into a world of Chaos.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "Goblins swarm the courtyard \u2014 until lightning cracks from the
+      wizard\u2019s staff. Smoke, silence, and the faint smell of victory."
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "Skeletons rise again, their bones glowing blue. The wizard sighs.
+      \u201CAlways at night,\u201D they whisper, summoning flame to cleanse the graveyard."
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "The coward king\u2019s crown still rests on the throne. The wizard
+      refuses to wear it \u2014 power, after all, needs no ornament."
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: "Skeletons breach the walls, their blades clattering. The wizard conjures
+      a storm inside the courtyard \u2014 rain and ruin fall together."
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: -150
+  - paragraph: "Dawn breaks. The kingdom still stands. The wizard exhales, eyes glowing
+      faintly. \u201CLet the cowards stay gone.\u201D"
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 150
+  - paragraph: The old mine yields a new vein of gold. The wizard blesses it, though
+      the earth grumbles in protest.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 250
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: The wizard blesses the crops, calling for a rich and fruitful soil.
+      "Let no man go hungry in war."
+    addEcon: 0
+    addInfrastructure: 1
+    addTowerHealth: 0
+    econ: 0
+    infrastructure: {fileID: 11400000, guid: 9ab883eb9ce71c843ba63c82619b7649, type: 2}
+    towerHealth: 0
+  - paragraph: Trolls batter the outer wall. The wizard chants, and the stones themselves
+      grow fangs.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 200
+  - paragraph: "Goblins raid the armory. The wizard traps them in illusions \u2014
+      endless hallways where their greed devours itself."
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 150
+    infrastructure: {fileID: 0}
+    towerHealth: 200
+  - paragraph: "The treasury lies bare. With a muttered spell, the wizard turns pebbles
+      to gold \u2014 temporarily. Enough to buy another day."
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 250
+    infrastructure: {fileID: 0}
+    towerHealth: 0
+  - paragraph: The castle walls are repaired with enchanted stone. They whisper softly
+      at night, remembering every siege.
+    addEcon: 0
+    addInfrastructure: 0
+    addTowerHealth: 1
+    econ: 0
+    infrastructure: {fileID: 0}
+    towerHealth: 200
+  - paragraph: The Wizard takes a trip to the mine during a lull in battle. "Hurry,
+      Hurry", he says to the miners, each blessed with haste.
+    addEcon: 1
+    addInfrastructure: 0
+    addTowerHealth: 0
+    econ: 250
+    infrastructure: {fileID: 0}
+    towerHealth: 200

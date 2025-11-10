@@ -26,11 +26,11 @@ public class MainMenuHandler : MonoBehaviour
 
     public void OpenRules()
     {
-        rulesCanvas.enabled = true;
+        rulesCanvas.gameObject.SetActive(true);
     }
 
     public void CloseRules()
     {
-        rulesCanvas.enabled = false;
+        rulesCanvas.gameObject.SetActive(false);
     }
 }
